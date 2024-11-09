@@ -1,0 +1,434 @@
+.Root{
+  height: 100vh;
+  background-image: url("../assets/anonymous-bg.jpg");
+  background-size: cover;
+  background-position: fixed;
+  width: 100%;
+  opacity: 100%;
+  color: white;
+}
+
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2a2a2a;
+  padding: 20px;
+  height: 50px;
+}
+
+.linkBtn {
+  color: white;
+  text-decoration: none;
+}
+
+.appName{
+  font-size: 28px;
+  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
+  filter: drop-shadow(1px 2px 1px orange);
+}
+
+.navMenu{
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+}
+
+
+.navBtn {
+  display: flex;
+  gap: 20px;
+}
+
+.allBtn{
+  box-sizing: border-box;
+  background: #555555;
+  padding: 6px;
+  border-radius: 10px;
+  transition: 0.3s;
+}
+
+.allBtn:hover{
+  background: whitesmoke;
+  color: black;
+  transition: 0.5s;
+  transform: scale(1.08);
+
+}
+
+.outlet{
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
+
+/* SignIn Design */
+.signUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "url", sans-serif;
+  width: 387px;
+  height: 480px;
+  padding: 10px;
+  gap: 0px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0px 0px 10px 1px white;
+}
+
+.signUp img {
+  width: 25px;
+  height: 25px;
+}
+
+.signUp h2 {
+  height: 28px;
+  font-size: 24px;
+  line-height: 28.2px;
+  margin-bottom: 50px;
+}
+
+.signUp Form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signUp Form>input {
+  width: 250px;
+  height: 48px;
+  border-radius: 1000px;
+  border: 1px solid #ffffff;
+  padding-left: 35px;
+  margin-bottom: -8px;
+}
+
+.logBtn {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #404040;
+  gap: 10px;
+  width: 275px;
+  height: 48px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 1000px;
+  color: white;
+}
+
+.logBtn>img {
+  height: 12px;
+  width: 15px;
+}
+
+.allBtn {
+  transition: 0.3s;
+  box-shadow: 0px 0px 5px 1px white;
+}
+
+.allBtn:hover {
+  background: white;
+  color: black;
+  transition: 0.4s;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 5px 1px gray;
+  filter: drop-shadow(0px 0px 1px rgb(181, 181, 181));
+  cursor: pointer;
+}
+
+.allBtn:hover img {
+  filter: invert(100%);
+}
+
+h1 {
+  /* Below 3 lines makes the item to align at center. */
+  width: fit-content;
+  margin-left: auto;
+  margin-right: auto;
+  background: #171717;
+  font-family: "Pacifico", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  padding: 8px;
+  font-size: 32px;
+  text-align: center;
+  border-radius: 5px;
+  box-shadow: 0px 0px 20px 1px #f57c00;
+}
+
+/* Design for the entire UI of Todo frame */
+.todo-wrapper {
+  color: white;
+  padding: 20px;
+  /* width will setted to the size of the content. */
+  width: 90%;
+  backdrop-filter: blur(2px);
+  font-family: "Pacifico", sans-serif;
+  /* This margin makes the item to align at center. */
+  margin-left: auto;
+  margin-right: auto;
+  /* margin-top: 50px; */
+  /* Adding maximum height to get the scroll */
+  height: 75vh;
+  width: 80vw;
+  /* when the items will be more then scroll will be added. */
+  overflow: auto;
+  border-radius: 10px;
+  box-shadow: 0px 0px 10px 1px #f57c00;
+}
+
+/* Design for the input part of the task */
+.todo-input {
+  display: flex;
+  justify-content: center;
+  border-bottom: 1px solid gray;
+  padding-bottom: 25px;
+  margin-bottom: 25px;
+  margin-right: 0px;
+}
+
+/* Styling the inputs item */
+.todo-input-item {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-right: 25px;
+}
+
+/* Styling the labels of the input */
+.todo-input-item label {
+  font-weight: bold;
+  font-family: "Pacifico", sans-serif;
+  font-weight: 400;
+  font-style: normal;
+  border-radius: 5px;
+  margin-bottom: 20px;
+  padding: 3px;
+  box-shadow: 0px 0px 12px 1px #ff9800;
+}
+
+/* Styling the input part of the input part*/
+.todo-input-item input {
+  padding: 8px;
+  border: none;
+  width: 250px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 10px #ff9800;
+}
+
+/* Styling the input when it's clicked or focused */
+.todo-input-item input:focus {
+  outline: none;
+  border: 2px solid #f57c00;
+}
+
+/* Styling add task button */
+.primaryBtn {
+  background-color: #ff6f00;
+  color: white;
+  font-family: cursive;
+  font-weight: 300;
+  font-style: normal;
+  margin-left: auto;
+  margin-right: auto;
+  border: none;
+  border-radius: 6px;
+  margin-top: 48px;
+  padding: 8px;
+  width: 50px;
+  cursor: pointer;
+  box-shadow: 0px 0px 12px 2px #ff6f00;
+}
+
+/* Adding hover effect on Add task button */
+.primaryBtn:hover {
+  background-color: #e65100;
+  color: white;
+}
+
+/* Styling todo/completed button to switch between the screens */
+.secondaryBtn {
+  background-color: #303030;
+  border-radius: 5px;
+  color: white;
+  border: none;
+  margin-top: 10px;
+  padding: 12px;
+  width: fit-content;
+  cursor: pointer;
+  box-shadow: 0px 0px 15px 1px #fb8c00;
+}
+
+/* switch to this color on active tab b/w todo and completed */
+.active {
+  background-color: #ff6f00;
+  color: black;
+}
+
+/* Styling the todo-list-area */
+.todo-list-area {
+  display: flex;
+  flex-direction: column;
+  margin-top: 30px;
+}
+
+.btn-area {
+  margin-bottom: 15px;
+}
+
+/* Styling the list item or added tasks visual */
+.todo-list-item {
+  background-color: rgb(40, 40, 40);
+  display: flex;
+  justify-content: space-between; /*This gives equal space between the contents here contents are in columns style*/
+  align-items: center;
+  padding: 25px;
+  padding-bottom: 10px;
+  padding-top: 10px;
+  margin-bottom: 30px;
+  border-radius: 6px;
+  box-shadow: 0px 0px 15px #fb8c00;
+}
+
+/* Styling the Name/Title of the task */
+.todo-list-item h3 {
+  font-size: 25px;
+  color: #ff6f00;
+  font-weight: bold;
+  margin: 0px;
+}
+
+/* Styling the description of the paragraph */
+.todo-list-item p {
+  font-size: 14px;
+  color: rgb(187, 183, 183);
+  margin-top: 8px;
+  margin-right: 8px;
+  width: fit-content;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  /* margin-left: auto;
+  margin-right: auto; */
+}
+
+/* Styling the icons */
+.deleteIcon {
+  font-size: 35px;
+  cursor: pointer;
+}
+/* Giving hover style to delete icon */
+.deleteIcon:hover {
+  color: red;
+  animation: logo-spin infinite 20s linear;
+}
+.checkIcon {
+  font-size: 35px;
+  margin-left: 10px;
+  cursor: pointer;
+  color: #ff6f00;
+}
+.checkIcon:hover {
+  color: rgb(2, 169, 91);
+  animation: logo-spin infinite 20s linear;
+}
+/* Rotation animation style */
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Stytlig the input feilds of the edit task */
+.editWrapper {
+  background-color: rgb(48, 48, 48);
+  padding: 10px;
+  display: flex;
+  margin-bottom: 25px;
+  flex-direction: column;
+  border-radius: 7px;
+  box-shadow: 0px 0px 15px #fb8c00;
+}
+
+.editWrapper input,
+.editWrapper textarea {
+  border: 1px solid lightgray;
+  padding: 10px;
+  margin: 5px;
+  border-radius: 4px;
+}
+
+.editWrapper .primaryBtn {
+  margin-left: auto;
+  margin-right: auto;
+  padding: 12px;
+  font-size: 16px;
+  width: fit-content;
+}
+
+/* Adjusting view for small screen */
+@media (max-width: 720px) {
+  h1 {
+    font-size: 1.8em;
+  }
+
+  /* Design for the input part of the task */
+  .todo-input {
+    font-size: 0.8rem;
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 10px;
+  }
+
+  /* Align all the input items in row manner. */
+  .todo-input-item {
+    flex-direction: row;
+  }
+
+  /* Adjusting the labels of the inputs. */
+  .todo-input label {
+    width: 80px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 15px;
+  }
+
+  /* Adjusting the add button. */
+  .primaryBtn {
+    margin-top: 10px;
+    padding: 5px;
+  }
+}
+
+/* Edit Scroll Bar */
+/* width */
+::-webkit-scrollbar {
+  width: 12px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 10px 2px #fb8c00;
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: #ff6f00;
+  border-radius: 10px;
+}
+
+/* Handle on hover */
+::-webkit-scrollbar-thumb:hover {
+  background: #aa4a00;
+}

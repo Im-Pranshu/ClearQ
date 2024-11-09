@@ -1,0 +1,14 @@
+@font-face {
+  font-family: "Anton";
+  src: local("Anotn"), url(./fonts/Anton-Regular.ttf) format("truetype");
+}
+@font-face {
+  font-family: "Pacifico";
+  src: local("Pacifico"), url(./fonts/Pacifico-Regular.ttf) format("truetype");
+}
+
+* {
+  box-sizing: border-box;
+  padding: 0px;
+  margin: 0px;
+}
