@@ -1,9 +1,8 @@
 import React, { useState, useEffect } from "react";
-import Navbar from "../components/navbar";
-import Dashboard from "../routes/Dashboard";
 import { Outlet } from "react-router-dom";
-
 import axios from "axios";
+
+import Navbar from "../components/Navbar";
 
 const Root = () => {
   // FETCHING DATA BY AXIOS
