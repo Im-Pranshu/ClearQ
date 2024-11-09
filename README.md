@@ -1,6 +1,6 @@
 # Clear Q
 
-Clear Q Nam is a full-stack To-Do application built using the **MERN Stack** (MongoDB, Express, React, Node.js). This app allows users to perform CRUD (Create, Read, Update, Delete) operations, as well as login and signup functionalities to manage their tasks.
+ClearQ is a full-stack To-Do application built using the **MERN Stack** (MongoDB, Express, React, Node.js). This app allows users to perform CRUD (Create, Read, Update, Delete) operations, as well as login and signup functionalities to manage their tasks.
 
 ## Features
 - **User Authentication**: Users can register and log in to their accounts.
