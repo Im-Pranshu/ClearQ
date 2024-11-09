@@ -1,4 +1,4 @@
-# Clear Q Nam - To-Do App
+# Clear Q
 
 Clear Q Nam is a full-stack To-Do application built using the **MERN Stack** (MongoDB, Express, React, Node.js). This app allows users to perform CRUD (Create, Read, Update, Delete) operations, as well as login and signup functionalities to manage their tasks.
 
