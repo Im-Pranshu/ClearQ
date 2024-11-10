@@ -1,8 +1,9 @@
 import React from "react";
-import { Link, Form, redirect, useNavigation } from "react-router-dom";
+import "../css/SignPage.css";
 import rocket from "../assets/rocket.png";
-
 import Button from "../components/Button";
+
+import { Link, Form, redirect, useNavigation } from "react-router-dom";
 
 export default function SignIn() {
   const navigation = useNavigation();

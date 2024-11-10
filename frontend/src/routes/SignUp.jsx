@@ -1,4 +1,5 @@
 import React from "react";
+import "../css/SignPage.css";
 import {
   Link,
   Form,
@@ -20,9 +21,24 @@ export default function SignUp() {
       <img src={rocket} alt="" />
       <h2>Create Your Account</h2>
       <Form method="post">
-        <input type="text" name="name" placeholder="Enter Your Name" />
-        <input type="email" name="email" placeholder="Enter Email ID" />
-        <input type="password" name="password" placeholder="Enter Password" />
+        <input
+          type="text"
+          name="name"
+          placeholder="Enter Your Name"
+          autoComplete="off" // Disable autocomplete for comment input
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Enter Email ID"
+          autoComplete="off" // Disable autocomplete for comment input
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Enter Password"
+          autoComplete="off" // Disable autocomplete for comment input
+        />
 
         <Button
           content={"Sign up"}

@@ -1,0 +1,41 @@
+.navBar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #2a2a2a;
+  padding: 20px;
+  height: 50px;
+}
+
+.appName {
+  font-size: 28px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  filter: drop-shadow(1px 2px 1px orange);
+  color: white;
+  text-decoration: none;
+}
+
+.navMenu {
+  display: flex;
+  gap: 20px;
+  font-size: 18px;
+}
+
+.navMenu > * {
+  text-decoration: none;
+  color: white;
+  transition: 0.2s;
+  padding: 5px;
+}
+
+.navMenu > *:hover {
+  transition: 0.3s;
+  box-shadow: 2px 1px 2px orange;
+  border-radius: 10px;
+  transform: translateY(-2px);
+}
+
+.navBtn {
+  display: flex;
+  gap: 20px;
+}

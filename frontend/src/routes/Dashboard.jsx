@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import "./Dashboard.css";
+import "../css/Dashboard.css";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { FaRegCheckCircle } from "react-icons/fa";
 import { AiOutlineEdit } from "react-icons/ai";

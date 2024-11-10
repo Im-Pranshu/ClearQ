@@ -1,0 +1,63 @@
+/* SignIn Design */
+.signUp {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  font-family: "url", sans-serif;
+  width: 387px;
+  height: 480px;
+  padding: 10px;
+  gap: 0px;
+  border-radius: 10px;
+  backdrop-filter: blur(2px);
+  box-shadow: 0px 0px 10px 1px white;
+}
+
+.signUp img {
+  width: 25px;
+  height: 25px;
+}
+
+.signUp h2 {
+  height: 28px;
+  font-size: 24px;
+  line-height: 28.2px;
+  margin-bottom: 50px;
+}
+
+.signUp Form {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.signUp Form > input {
+  width: 250px;
+  height: 48px;
+  border-radius: 1000px;
+  border: 1px solid #ffffff;
+  padding-left: 35px;
+  margin-bottom: -8px;
+}
+
+.logBtn {
+  margin-top: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #404040;
+  gap: 10px;
+  width: 275px;
+  height: 48px;
+  border: none;
+  margin-top: 20px;
+  border-radius: 1000px;
+  color: white;
+}
+
+.logBtn > img {
+  height: 12px;
+  width: 15px;
+}

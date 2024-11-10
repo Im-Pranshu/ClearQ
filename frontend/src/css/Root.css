@@ -1,0 +1,45 @@
+.Root {
+  height: 100vh;
+  background-image: url("../assets/anonymous-bg.jpg");
+  background-size: cover;
+  background-position: fixed;
+  width: 100%;
+  opacity: 100%;
+  color: white;
+}
+
+.linkBtn {
+  color: white;
+  text-decoration: none;
+}
+
+.allBtn {
+  box-sizing: border-box;
+  background: #555555;
+  padding: 6px;
+  border-radius: 7px;
+  transition: 0.3s;
+  box-shadow: 0px 0px 2px gray;
+  border: 0.2px solid gray;
+}
+
+.allBtn:hover {
+  background: whitesmoke;
+  color: black;
+  transition: 0.4s;
+  transform: scale(1.1);
+  box-shadow: 0px 0px 2px orange;
+  border: 0.2px solid orange;
+  filter: drop-shadow(0px 0px 1px orange);
+  cursor: pointer;
+}
+
+.allBtn:hover img {
+  filter: invert(100%);
+}
+
+.outlet {
+  display: flex;
+  justify-content: center;
+  margin-top: 40px;
+}
