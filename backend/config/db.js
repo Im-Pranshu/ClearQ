@@ -1,11 +1,10 @@
-require("dotenv").config();
+import dotenv from "dotenv";
 import mongoose from "mongoose";
 
+dotenv.config();
+
 mongoose
-  .connect(process.env.MONGODB_URI, {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  })
+  .connect(process.env.MONGODB_URI)
   .then(() => {
     console.log("DB Connected");
   })

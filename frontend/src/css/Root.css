@@ -43,3 +43,34 @@
   justify-content: center;
   margin-top: 40px;
 }
+
+/* Loader styles */
+.loader {
+  display: flex; /* Use flexbox for centering */
+  justify-content: center; /* Center horizontally */
+  align-items: center; /* Center vertically */
+  gap: 15px;
+  /* font-size: 26px; Font size for loading text */
+  color: #d2d2d2; /* Color of the loading text */
+}
+
+.loader:before {
+  content: ""; /* Empty content for the loader */
+  display: inline-block; /* Required for animation */
+  width: 20px; /* Width of the spinner */
+  height: 20px; /* Height of the spinner */
+  border: 5px solid #ccc; /* Light gray border */
+  border-top-color: #242424; /* Color for the spinner's top */
+  border-radius: 50%; /* Make it circular */
+  animation: spin 1s linear infinite; /* Spin animation */
+}
+
+/* Spin animation */
+@keyframes spin {
+  0% {
+    transform: rotate(0deg); /* Start position */
+  }
+  100% {
+    transform: rotate(360deg); /* End position */
+  }
+}

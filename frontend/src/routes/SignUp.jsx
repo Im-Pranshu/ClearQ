@@ -7,6 +7,9 @@ import {
   redirect,
   useNavigation,
 } from "react-router-dom";
+
+import axios from "axios"; // Import axios to make API calls
+
 import rocket from "../assets/rocket.png";
 import Button from "../components/Button";
 
@@ -26,18 +29,21 @@ export default function SignUp() {
           name="name"
           placeholder="Enter Your Name"
           autoComplete="off" // Disable autocomplete for comment input
+          // required
         />
         <input
           type="email"
           name="email"
           placeholder="Enter Email ID"
           autoComplete="off" // Disable autocomplete for comment input
+          // required
         />
         <input
           type="password"
           name="password"
           placeholder="Enter Password"
           autoComplete="off" // Disable autocomplete for comment input
+          // required
         />
 
         <Button
@@ -65,8 +71,28 @@ export async function action({ request }) {
   const email = formData.get("email");
   const password = formData.get("password");
 
-  localStorage.setItem("userName", name); // for displaying in account profile
+  console.log(name, email, password);
 
-  // Redirect to OTP verification page
-  return redirect("/dashboard");
+  // Send signup request to the backend API
+  try {
+    const response = await axios.post("http://localhost:3000/user/signup", {
+      name,
+      email,
+      password,
+    });
+
+    if (response.data.status === "SUCCESS") {
+      // Save user details to localStorage
+      localStorage.setItem("userName", name);
+
+      // Redirect to OTP verification or dashboard
+      return redirect("/dashboard");
+    } else {
+      return { error: "Registration failed. Please try again." };
+    }
+  } catch (error) {
+    return {
+      error: "An error occurred during registration. Please try again.",
+    };
+  }
 }
