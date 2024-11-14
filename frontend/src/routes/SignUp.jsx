@@ -22,6 +22,7 @@ export default function SignUp() {
   return (
     <div className="signUp">
       <img src={rocket} alt="" />
+      
       <h2>Create Your Account</h2>
       <Form method="post">
         <input
