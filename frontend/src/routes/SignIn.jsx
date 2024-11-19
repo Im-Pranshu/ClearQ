@@ -65,6 +65,7 @@ export async function action({ request }) {
     const response = await axios.post(
       "https://clear-q-backend.vercel.app/user/signin",
       { email, password },
+
       {
         withCredentials: true, // Allow credentials
       }
