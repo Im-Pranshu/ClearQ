@@ -12,32 +12,18 @@ import UserRouter from "./api/User.js";
 const app = express();
 const port = 3000;
 
-// Enable CORS for requests from your frontend origin
+// Enable CORS globally with credentials for a specific origin
 app.use(
   cors({
-    origin: "https://clear-q.vercel.app", // Frontend origin
-    methods: ["GET", "POST", "PUT", "DELETE"], // Allowed HTTP methods
-    credentials: true, // Allow cookies/authorization headers
+    origin: "https://clear-q.vercel.app", // Allow your frontend domain
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow methods
+    allowedHeaders: ["Content-Type", "Authorization", "x-requested-with"], // Allowed headers
+    credentials: true, // Allow cookies and credentials
   })
 );
 
-// Middleware to handle preflight requests explicitly
-app.use((req, res, next) => {
-  res.header("Access-Control-Allow-Origin", "https://clear-q.vercel.app");
-  res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE, OPTIONS");
-  res.header(
-    "Access-Control-Allow-Headers",
-    "Content-Type, Authorization, x-requested-with"
-  );
-  res.header("Access-Control-Allow-Credentials", "true");
-
-  // Handle preflight requests
-  if (req.method === "OPTIONS") {
-    return res.status(200).send();
-  }
-
-  next();
-});
+// Handle preflight OPTIONS requests explicitly for all routes
+app.options("*", cors()); // This will handle OPTIONS requests for all routes
 
 // for accepting post form data
 app.use(bodyParser());
