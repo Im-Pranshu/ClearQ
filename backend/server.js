@@ -21,6 +21,8 @@ app.use(
   })
 );
 
+app.options("*", cors()); // Handle preflight requests globally
+
 // for accepting post form data
 app.use(bodyParser());
 
