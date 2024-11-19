@@ -15,7 +15,7 @@ const port = 3000;
 // Enable CORS for requests from http://localhost:5173
 app.use(
   cors({
-    origin: "https://clear-q.vercel.app/",
+    origin: "https://clear-q.vercel.app/user/",
     methods: ["POST", "GET"],
   })
 );
