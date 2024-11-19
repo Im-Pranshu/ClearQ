@@ -16,7 +16,6 @@ const port = 3000;
 app.use(
   cors({
     origin: "https://clear-q.vercel.app/",
-    methods: ["POST"],
   })
 );
 
