@@ -1,4 +1,4 @@
-// mongodb
+// connecting mongodb by importing
 import "./config/db.js";
 
 import express from "express";
@@ -13,7 +13,12 @@ const app = express();
 const port = 3000;
 
 // Enable CORS for requests from http://localhost:5173
-app.use(cors({ origin: "http://localhost:5173" }));
+app.use(
+  cors({
+    origin: "http://localhost:5173",
+    methods: ["POST", "GET"],
+  })
+);
 
 // for accepting post form data
 app.use(bodyParser());
