@@ -15,21 +15,21 @@ const port = 3000;
 // Enable CORS globally with credentials for a specific origin
 app.use(
   cors({
-    origin: "https://clear-q.vercel.app", // Allow your frontend domain
+    origin: "https://clear-q.vercel.app/", // Allow your frontend domain
     methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"], // Allow methods
-    allowedHeaders: ["Content-Type", "Authorization", "x-requested-with"], // Allowed headers
     credentials: true, // Allow cookies and credentials
   })
 );
-
-// Handle preflight OPTIONS requests explicitly for all routes
-app.options("*", cors()); // This will handle OPTIONS requests for all routes
 
 // for accepting post form data
 app.use(bodyParser());
 
 // Attach the UserRouter
 app.use("/user", UserRouter);
+
+app.get("/getData", (req, res) => {
+  res.send("Hare Krishna");
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
