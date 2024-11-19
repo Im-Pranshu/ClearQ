@@ -62,14 +62,10 @@ export async function action({ request }) {
 
   try {
     // Send login request to backend
-    const response = await axios.post(
-      "https://clear-q-backend.vercel.app/user/signin",
-      { email, password },
-
-      {
-        withCredentials: true, // Allow credentials
-      }
-    );
+    const response = await axios.post("http://localhost:3000/user/signin", {
+      email,
+      password,
+    });
 
     if (response.data.status === "SUCCESS") {
       // Redirect to dashboard on success
