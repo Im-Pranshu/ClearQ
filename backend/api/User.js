@@ -122,7 +122,7 @@ router.post("/signin", (req, res) => {
     });
   }
   // check format of email using reg expression
-  else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/) {
+  else if (!/^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$/.test(email)) {
     res.json({
       status: "FAILED",
       message: "Enter a valid Email ID!",

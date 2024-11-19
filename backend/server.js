@@ -15,9 +15,13 @@ const port = 3000;
 // Enable CORS for requests from http://localhost:5173
 app.use(
   cors({
-    origin: "https://clear-q.vercel.app/",
+    origin: "https://clear-q.vercel.app", // Allow requests from your frontend origin
+    credentials: true, // Allow credentials (cookies/authorization headers)
   })
 );
+
+// Add middleware to handle preflight OPTIONS requests
+app.options("*", cors()); // Handle preflight requests globally
 
 // for accepting post form data
 app.use(bodyParser());

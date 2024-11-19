@@ -67,6 +67,9 @@ export async function action({ request }) {
       {
         email,
         password,
+      },
+      {
+        withCredentials: true,
       }
     );
 
