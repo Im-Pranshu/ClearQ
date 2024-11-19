@@ -22,7 +22,7 @@ export default function SignUp() {
   return (
     <div className="signUp">
       <img src={rocket} alt="" />
-      
+
       <h2>Create Your Account</h2>
       <Form method="post">
         <input
@@ -76,11 +76,14 @@ export async function action({ request }) {
 
   // Send signup request to the backend API
   try {
-    const response = await axios.post("http://localhost:3000/user/signup", {
-      name,
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://clear-q-backend.vercel.app/user/signup",
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
     if (response.data.status === "SUCCESS") {
       // Save user details to localStorage
