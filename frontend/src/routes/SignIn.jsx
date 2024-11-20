@@ -93,29 +93,29 @@ export async function action({ request }) {
       return { error: "An unexpected error occurred. Please try again." };
     }
   }
-
-  // Send login request to the backend API
-  // try {
-  //   const response = await axios.post(
-  //     "https://clear-q-backend.vercel.app/user/signin",
-  //     {
-  //       email,
-  //       password,
-  //     },
-  //     {
-  //       withCredentials: true,
-  //     }
-  //   );
-
-  //   if (response.data.status === "SUCCESS") {
-  //     // On success, redirect to the dashboard
-  //     return redirect("/dashboard");
-  //   } else {
-  //     // If login fails, return error message
-  //     return { error: "Invalid credentials. Please try again." };
-  //   }
-  // } catch (error) {
-  //   // Catch any errors and send them to the frontend
-  //   return { error: "An error occurred during login. Please try again." };
-  // }
 }
+
+// Send login request to the backend API
+// try {
+//   const response = await axios.post(
+//     "https://clear-q-backend.vercel.app/user/signin",
+//     {
+//       email,
+//       password,
+//     },
+//     {
+//       withCredentials: true,
+//     }
+//   );
+
+//   if (response.data.status === "SUCCESS") {
+//     // On success, redirect to the dashboard
+//     return redirect("/dashboard");
+//   } else {
+//     // If login fails, return error message
+//     return { error: "Invalid credentials. Please try again." };
+//   }
+// } catch (error) {
+//   // Catch any errors and send them to the frontend
+//   return { error: "An error occurred during login. Please try again." };
+// }

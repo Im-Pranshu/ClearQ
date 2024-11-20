@@ -1,5 +1,8 @@
 import React from "react";
 import "../css/SignPage.css";
+import rocket from "../assets/rocket.png";
+import Button from "../components/Button";
+
 import {
   Link,
   Form,
@@ -7,11 +10,7 @@ import {
   redirect,
   useNavigation,
 } from "react-router-dom";
-
 import axios from "axios"; // Import axios to make API calls
-
-import rocket from "../assets/rocket.png";
-import Button from "../components/Button";
 
 export default function SignUp() {
   const actionData = useActionData(); // Get data or errors returned from the action
@@ -72,18 +71,13 @@ export async function action({ request }) {
   const email = formData.get("email");
   const password = formData.get("password");
 
-  console.log(name, email, password);
-
   // Send signup request to the backend API
   try {
-    const response = await axios.post(
-      "https://clear-q-backend.vercel.app/user/signup",
-      {
-        name,
-        email,
-        password,
-      }
-    );
+    const response = await axios.post("http://localhost:3000/user/signup", {
+      name,
+      email,
+      password,
+    });
 
     if (response.data.status === "SUCCESS") {
       // Save user details to localStorage
