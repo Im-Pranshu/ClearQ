@@ -1,0 +1,47 @@
+.contact-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 20px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  max-width: 500px;
+}
+
+.contact-title {
+  margin-top: 0px;
+  font-size: 4rem;
+}
+
+.contact-description {
+  text-align: center;
+}
+
+.contact-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 20px;
+}
+
+.contact-item {
+  display: flex;
+  align-items: center;
+  margin-bottom: 15px;
+  color: #eaeaea;
+}
+
+.contact-icon {
+  margin-right: 15px;
+  font-size: 25px;
+  color: #00adb5;
+}
+
+.contact-info a {
+  color: #00adb5;
+  text-decoration: none;
+  font-size: 16px;
+}
+
+.contact-info a:hover {
+  text-decoration: underline;
+}
