@@ -183,4 +183,11 @@ router.post("/signin", (req, res) => {
   }
 });
 
+router.get("/temp", (req, res) => {
+  res.json({
+    status: "FAILED",
+    message: "Lenght of password must be atleast 6 characters!",
+  });
+});
+
 export default router;

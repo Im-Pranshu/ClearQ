@@ -21,9 +21,16 @@ app.use(bodyParser());
 // Attach the UserRouter
 app.use("/user", UserRouter);
 
-// app.get("/getData", (req, res) => {
-//   res.send("Hare Krishna");
-// });
+// app
+//   .get("/user2", () => {})
+//   .get("signin", (req, res) => {
+//     console.log("signin post request");
+//     res.json({ message: "signin post request" });
+//   });
+
+app.get("/getData", (req, res) => {
+  res.send("Hare Krishna");
+});
 
 app.listen(port, () => {
   console.log(`Server running on port ${port}`);
