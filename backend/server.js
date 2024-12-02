@@ -10,7 +10,8 @@ import { json as bodyParser } from "express";
 import UserRouter from "./api/User.js";
 
 const app = express();
-const port = 3000;
+// const port = 3000;
+const port = process.env.PORT || 3000;
 
 app.use(cors({ origin: "http://localhost:5173" }));
 
