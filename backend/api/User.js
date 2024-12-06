@@ -3,8 +3,41 @@ import express from "express";
 // mongoose user model
 import User from "../models/User.js";
 
+// mongoose user verification model
+import UserVerification from "../models/UserVerification.js";
+
+// email handler
+import nodemailer from "nodemailer";
+
+// unique string
+import { v4 as uuidv4 } from "uuid";
+
+// env variables
+import dotenv from "dotenv";
+
+dotenv.config();
+
 // password handler - encrypt and decrypt password
 import bcrypt from "bcrypt";
+
+// nodemailer stuff
+let transporter = nodemailer.createTransport({
+  service: "gmail",
+  auth: {
+    user: process.env.AUTH_EMAIL,
+    pass: process.env.AUTH_PASS,
+  },
+});
+
+// testing succes of nodemailer
+transporter.verify((error, success) => {
+  if (error) {
+    console.log(error);
+  } else {
+    console.log("Ready for messages");
+    console.log(success);
+  }
+});
 
 const router = express.Router();
 

@@ -1,11 +1,13 @@
 import React from "react";
 import { FaTasks, FaCheckCircle, FaRegListAlt } from "react-icons/fa";
 import "../css/Home.css";
+import logo from "../assets/logo.png";
 
 const Home = () => {
   return (
     <div className="home-container">
       <FaTasks className="home-icon" />
+      {/* <img src={logo} className="home-icon"></img> */}
       <h1 className="home-title">Welcome to ClearQ</h1>
       <p className="home-description">
         Take control of your tasks with ClearQ.
