@@ -22,7 +22,10 @@ import bcrypt from "bcrypt";
 
 // nodemailer stuff
 let transporter = nodemailer.createTransport({
-  service: "gmail",
+  service: "Gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
     user: process.env.AUTH_EMAIL,
     pass: process.env.AUTH_PASS,
@@ -103,16 +106,14 @@ router.post("/signup", (req, res) => {
                 name,
                 email,
                 password: hashedPassword,
+                verified: false,
               });
 
               newUser
                 .save()
                 .then((result) => {
-                  res.json({
-                    status: "SUCCESS",
-                    message: "Account created successfully",
-                    data: result,
-                  });
+                  // Handling account verification
+                  sendVerificationEmail(result, res);
                 })
                 .catch((err) => {
                   res.json({
@@ -138,6 +139,74 @@ router.post("/signup", (req, res) => {
       });
   }
 });
+
+const sendVerificationEmail = ({ _id, email }, res) => {
+  // url to be used in the email
+  const currentUrl = "http://localhost:5000/";
+
+  // combining user id from db and uid package value to get unique string
+  const uniqueString = uuidv4() + _id;
+
+  // mail options
+  const mailOptions = {
+    from: process.env.AUTH_EMAIL,
+    to: email,
+    subject: "Verify Your Email",
+    html: `<p>Verify your email address to complete the signup process. After Verification you can login to your acccount. <br>
+    Thank You. </p> <p><b>The Link will expire in 6 hours</b> </p> <p>Press <a href=${
+      currentUrl + "user/verify" + _id + "/" + uniqueString
+    } + unique> here<a/> to proceed.</p>`,
+  };
+
+  // hash the uniqeString
+  const saltRounds = 10;
+  bcrypt
+    .hash(uniqueString, saltRounds)
+    .then((hashedUniqueString) => {
+      // set values in userVerification collection
+      const newVerification = new UserVerification({
+        userId: _id,
+        uniqueString: hashedUniqueString,
+        createdAt: Date.now(),
+        expireAt: Date.now() + 21600000, // 6 hours from now
+      });
+
+      newVerification
+        .save()
+        // finally sending mail to the user
+        .then(() => {
+          transporter
+            .sendMail(mailOptions)
+            .then(() => {
+              // email sent and verification record also saved
+              res.json({
+                status: "PENDING",
+                message: "Verification mail sent!",
+              });
+            })
+            .catch((err) => {
+              console.log(err);
+              res.json({
+                status: "FAILED",
+                message: "Email Verification Failed!",
+              });
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          res.json({
+            status: "FAILED",
+            message: "Failed to save verification email data!",
+          });
+        });
+    })
+    .catch(() => {
+      res.json({
+        status: "FAILED",
+        message: "An error occurred while hashing email data!",
+      });
+    });
+};
 
 // SignIn
 router.post("/signin", (req, res) => {
@@ -214,13 +283,6 @@ router.post("/signin", (req, res) => {
         });
       });
   }
-});
-
-router.get("/temp", (req, res) => {
-  res.json({
-    status: "FAILED",
-    message: "Lenght of password must be atleast 6 characters!",
-  });
 });
 
 export default router;
