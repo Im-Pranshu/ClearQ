@@ -181,7 +181,7 @@ const sendVerificationEmail = ({ _id, email }, res) => {
               // email sent and verification record also saved
               res.json({
                 status: "PENDING",
-                message: "Verification mail sent!",
+                message: "Verification mail sent please check and verify!",
               });
             })
             .catch((err) => {
