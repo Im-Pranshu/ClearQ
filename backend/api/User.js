@@ -140,6 +140,7 @@ router.post("/signup", (req, res) => {
   }
 });
 
+// sending verification link by email
 const sendVerificationEmail = ({ _id, email }, res) => {
   // url to be used in the email
   const currentUrl = "http://localhost:5000/";
@@ -207,6 +208,18 @@ const sendVerificationEmail = ({ _id, email }, res) => {
       });
     });
 };
+
+// handling verification of sent link - Verify Email
+router.get("/verify/:userId/:uniqueString", () => {
+  let { userId, uniqueString } = req.params;
+
+  UserVerification.find({ userId })
+    .then()
+    .catch((error) => {
+      console.log(error);
+      // start from here
+    });
+});
 
 // SignIn
 router.post("/signin", (req, res) => {
