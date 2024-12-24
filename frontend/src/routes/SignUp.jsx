@@ -73,7 +73,7 @@ export async function action({ request }) {
 
   // Send signup request to the backend API
   try {
-    const response = await axios.post("http://localhost:3000/user/signup", {
+    const response = await axios.post("http://localhost:5000/user/signup", {
       name,
       email,
       password,

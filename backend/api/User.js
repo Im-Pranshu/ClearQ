@@ -6,6 +6,9 @@ import User from "../models/User.js";
 // mongoose user verification model
 import UserVerification from "../models/UserVerification.js";
 
+// password handler - encrypt and decrypt password
+import bcrypt from "bcrypt";
+
 // email handler
 import nodemailer from "nodemailer";
 
@@ -19,9 +22,6 @@ import dotenv from "dotenv";
 import path from "path";
 
 dotenv.config();
-
-// password handler - encrypt and decrypt password
-import bcrypt from "bcrypt";
 
 // nodemailer stuff
 let transporter = nodemailer.createTransport({
@@ -158,7 +158,7 @@ const sendVerificationEmail = ({ _id, email }, res) => {
     subject: "Verify Your Email",
     html: `<p>Verify your email address to complete the signup process. After Verification you can login to your acccount. <br>
     Thank You. </p> <p><b>The Link will expire in 6 hours</b> </p> <p>Press <a href=${
-      currentUrl + "user/verify" + _id + "/" + uniqueString
+      currentUrl + "user/verify/" + _id + "/" + uniqueString
     } + unique> here<a/> to proceed.</p>`,
   };
 
@@ -226,27 +226,32 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
         // check if record is not expired
         const { expireAt } = result[0];
         const hashedUniqueString = result[0].uniqueString;
+        console.log(hashedUniqueString);
 
+        // if value of current time< less than link expire time
+        // link is expired
         if (expireAt < Date.now()) {
           // record is expired so we delete it
           UserVerification.deleteOne({ userId })
-            .then((result) => {
+            .then(() => {
+              // if link is expired then we need to delete the user id as well from the record
               User.deleteOne({ _id: userId })
                 .then(() => {
                   let message =
                     "Link has expired. Please request a new verification link.";
-                  res.redirect(`/user/verified/error=true&messages=${message}`);
+                  res.redirect(`/user/verified/error=true&message=${message}`);
                 })
                 .catch((error) => {
+                  console.log(error);
                   let message =
                     "Clearing user with expired unique string failed!";
-                  res.redirect(`/user/verified/error=true&messages=${message}`);
+                  res.redirect(`/user/verified/error=true&message=${message}`);
                 });
             })
             .catch((result) => {
               console.log(result);
               let message = "Failed to delete expired verification record!";
-              res.redirect(`/user/verified/error=true&messages=${message}`);
+              res.redirect(`/user/verified/error=true&message=${message}`);
             });
         } else {
           // record is not expired so we proceed with verification
@@ -255,13 +260,16 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
           bcrypt
             .compare(uniqueString, hashedUniqueString)
             .then((result) => {
-              //
+              // here result is boolean value true or false
+              // whether the string is matched or not
               if (result) {
                 // string match
                 // update user document with verified status
 
                 User.updateOne({ _id: userId }, { verified: true })
                   .then(() => {
+                    // user verified status updated now
+                    // userVerification details are no longer needed
                     UserVerification.deleteOne({ userId })
                       .then(() => {
                         res.sendFile(
@@ -269,45 +277,52 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                         );
                       })
                       .catch((error) => {
-                        console.log("ye error hai - " + error);
+                        console.log(error);
+                        let message =
+                          "An Error occurred while finalizing successful verification";
+                        res.redirect(
+                          `/user/verified/error=true&message=${message}`
+                        );
                       });
                   })
                   .catch((error) => {
+                    console.log(error);
                     let message =
                       "An Error occurred while updating user record to show verified";
                     res.redirect(
-                      `/user/verified/error=true&messages=${message}`
+                      `/user/verified/error=true&message=${message}`
                     );
                   });
               } else {
                 // existing record but incorrect verification detail passed
                 let message =
                   "Invalid Verification detials, Please check your inbox";
-                res.redirect(`/user/verified/error=true&messages=${message}`);
+                res.redirect(`/user/verified/error=true&message=${message}`);
               }
             })
             .catch((error) => {
+              console.log(error);
               let message = "An error occurred while comparing unique strings.";
-              res.redirect(`/user/verified/error=true&messages=${message}`);
+              res.redirect(`/user/verified/error=true&message=${message}`);
             });
         }
       } else {
-        // user verification record doesn't exist
+        // user verification record doesn't exist i.e. user has already verified or not created account
         let message =
           "Account record doesn't exist or has been already verified. Please signup or login";
-        res.redirect(`/user/verified/error=true&messages=${message}`);
+        res.redirect(`/user/verified/error=true&message=${message}`);
       }
     })
     .catch((error) => {
       console.log(error);
       let message = "An error occurred while fetching user verification data!";
-      res.redirect(`/user/verified/error=true&messages=${message}`);
+      res.redirect(`/user/verified/error=true&message=${message}`);
     });
 });
 
 // Verified Page Route
 router.get("/Verified", (req, res) => {
-  res.sendFile(path.join(__dirname, "./../views /verified.html"));
+  res.sendFile(path.join(__dirname, "./../views/verified.html"));
 });
 
 // SignIn
@@ -348,12 +363,14 @@ router.post("/signin", (req, res) => {
 
           // check verification status of the user
           if (!data[0].verified) {
+            // not verified
             res.json({
               status: "FAILED",
               message:
                 "Your account is not verified yet! Please verify your account first!",
             });
           } else {
+            // verified
             const hashedPassword = data[0].password;
             bcrypt
               .compare(password, hashedPassword)
