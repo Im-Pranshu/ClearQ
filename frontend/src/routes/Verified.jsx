@@ -13,7 +13,7 @@ const Verification = () => {
       <h1>Verification Status</h1>
       {error ? (
         <div style={{ color: "red" }}>
-          <p>Error: {message}</p>
+          <p>{message}</p>
         </div>
       ) : (
         <div style={{ color: "green" }}>

@@ -239,19 +239,31 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                 .then(() => {
                   let message =
                     "Link has expired. Please request a new verification link.";
-                  res.redirect(`/user/verified/error=true&message=${message}`);
+                  res.redirect(
+                    `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                      message
+                    )}`
+                  );
                 })
                 .catch((error) => {
                   console.log(error);
                   let message =
                     "Clearing user with expired unique string failed!";
-                  res.redirect(`/user/verified/error=true&message=${message}`);
+                  res.redirect(
+                    `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                      message
+                    )}`
+                  );
                 });
             })
             .catch((result) => {
               console.log(result);
               let message = "Failed to delete expired verification record!";
-              res.redirect(`/user/verified/error=true&message=${message}`);
+              res.redirect(
+                `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                  message
+                )}`
+              );
             });
         } else {
           // record is not expired so we proceed with verification
@@ -272,8 +284,12 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                     // userVerification details are no longer needed
                     UserVerification.deleteOne({ userId })
                       .then(() => {
-                        res.sendFile(
-                          path.join(__dirname, "./../views/verified.html")
+                        const message =
+                          "Your account has been successfully created and verified. You can now log in.";
+                        res.redirect(
+                          `http://localhost:5173/verified?success=true&message=${encodeURIComponent(
+                            message
+                          )}`
                         );
                       })
                       .catch((error) => {
@@ -281,7 +297,9 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                         let message =
                           "An Error occurred while finalizing successful verification";
                         res.redirect(
-                          `/user/verified/error=true&message=${message}`
+                          `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                            message
+                          )}`
                         );
                       });
                   })
@@ -290,39 +308,52 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                     let message =
                       "An Error occurred while updating user record to show verified";
                     res.redirect(
-                      `/user/verified/error=true&message=${message}`
+                      `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                        message
+                      )}`
                     );
                   });
               } else {
                 // existing record but incorrect verification detail passed
                 let message =
                   "Invalid Verification detials, Please check your inbox";
-                res.redirect(`/user/verified/error=true&message=${message}`);
+                res.redirect(
+                  `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                    message
+                  )}`
+                );
               }
             })
             .catch((error) => {
               console.log(error);
               let message = "An error occurred while comparing unique strings.";
-              res.redirect(`/user/verified/error=true&message=${message}`);
+              res.redirect(
+                `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                  message
+                )}`
+              );
             });
         }
       } else {
         // user verification record doesn't exist i.e. user has already verified or not created account
         let message =
           "Account record doesn't exist or has been already verified. Please signup or login";
-        res.redirect(`/user/verified/error=true&message=${message}`);
+        res.redirect(
+          `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+            message
+          )}`
+        );
       }
     })
     .catch((error) => {
       console.log(error);
       let message = "An error occurred while fetching user verification data!";
-      res.redirect(`/user/verified/error=true&message=${message}`);
+      res.redirect(
+        `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+          message
+        )}`
+      );
     });
-});
-
-// Verified Page Route
-router.get("/Verified", (req, res) => {
-  res.sendFile(path.join(__dirname, "./../views/verified.html"));
 });
 
 // SignIn
