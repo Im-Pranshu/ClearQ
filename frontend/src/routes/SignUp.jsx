@@ -79,12 +79,12 @@ export async function action({ request }) {
       password,
     });
 
-    if (response.data.status === "SUCCESS") {
+    if (response.data.status === "PENDING") {
       // Save user details to localStorage
       localStorage.setItem("userName", name);
 
       // Redirect to OTP verification or dashboard
-      return redirect("/dashboard");
+      return redirect("/verify-email");
     } else {
       return { error: "Registration failed. Please try again." };
     }

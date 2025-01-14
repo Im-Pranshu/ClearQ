@@ -56,24 +56,25 @@ export default function SignIn() {
 }
 
 export async function action({ request }) {
-  const formData = await request.formData();
-  const email = formData.get("email");
-  const password = formData.get("password");
-
   try {
+    // Extract form data from the request
+    const formData = await request.formData();
+    const email = formData.get("email");
+    const password = formData.get("password");
+
     // Send login request to backend
     const response = await axios.post("http://localhost:5000/user/signin", {
       email,
       password,
     });
 
+    // Handle successful login
     if (response.data.status === "SUCCESS") {
-      // Redirect to dashboard on success
       return redirect("/dashboard");
-    } else {
-      // Return error message for invalid credentials
-      return { error: response.data.message || "Invalid credentials." };
     }
+
+    // Handle invalid credentials
+    return { error: response.data.message || "Invalid credentials." };
   } catch (error) {
     console.error("Login error:", error);
 
@@ -94,28 +95,3 @@ export async function action({ request }) {
     }
   }
 }
-
-// Send login request to the backend API
-// try {
-//   const response = await axios.post(
-//     "https://clear-q-backend.vercel.app/user/signin",
-//     {
-//       email,
-//       password,
-//     },
-//     {
-//       withCredentials: true,
-//     }
-//   );
-
-//   if (response.data.status === "SUCCESS") {
-//     // On success, redirect to the dashboard
-//     return redirect("/dashboard");
-//   } else {
-//     // If login fails, return error message
-//     return { error: "Invalid credentials. Please try again." };
-//   }
-// } catch (error) {
-//   // Catch any errors and send them to the frontend
-//   return { error: "An error occurred during login. Please try again." };
-// }

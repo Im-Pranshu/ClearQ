@@ -12,6 +12,7 @@ import AboutUs from "./routes/AboutUs.jsx";
 import SignIn, { action as signInAction } from "./routes/SignIn.jsx";
 import SignUp, { action as signUpAction } from "./routes/SignUp.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
+import VerifyEmail from "./routes/VerifyEmail.jsx";
 import Verified from "./routes/Verified.jsx";
 
 const router = createBrowserRouter([
@@ -33,6 +34,10 @@ const router = createBrowserRouter([
         path: "/sign-up",
         element: <SignUp />,
         action: signUpAction,
+      },
+      {
+        path: "/verify-email",
+        element: <VerifyEmail />,
       },
       {
         path: "/verified",

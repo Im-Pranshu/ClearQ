@@ -155,11 +155,19 @@ const sendVerificationEmail = ({ _id, email }, res) => {
   const mailOptions = {
     from: process.env.AUTH_EMAIL,
     to: email,
-    subject: "Verify Your Email",
-    html: `<p>Verify your email address to complete the signup process. After Verification you can login to your acccount. <br>
-    Thank You. </p> <p><b>The Link will expire in 6 hours</b> </p> <p>Press <a href=${
-      currentUrl + "user/verify/" + _id + "/" + uniqueString
-    } + unique> here<a/> to proceed.</p>`,
+    subject: "Verify Your Email Address",
+    html: `
+    <p>Dear ${res.name || "User "},</p>
+    <p>Thank you for signing up with ${
+      process.env.APP_NAME
+    }. To complete the registration process and access your account, please verify your email address by clicking on the link below.</p>
+    <p><b>Verification Link:</b> <a href="${currentUrl}user/verify/${_id}/${uniqueString}">Click here to verify your email address</a></p>
+      <p><b>Important:</b> This verification link will expire in 6 hours. If you have any issues or concerns, please contact our support team at ${
+        process.env.SUPPORT_EMAIL
+      }</p>
+      <p>Best Regards,</p>
+    <p>${process.env.APP_NAME} Team</p>
+  `,
   };
 
   // hash the uniqeString
@@ -285,7 +293,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                     UserVerification.deleteOne({ userId })
                       .then(() => {
                         const message =
-                          "Your account has been successfully created and verified. You can now log in.";
+                          "Your account has been successfully created and verified. You can log in now.";
                         res.redirect(
                           `http://localhost:5173/verified?success=true&message=${encodeURIComponent(
                             message

@@ -40,6 +40,10 @@
   filter: invert(100%);
 }
 
+.verify {
+  margin-top: 20px;
+}
+
 .outlet {
   display: flex;
   justify-content: center;
