@@ -76,6 +76,7 @@ export async function action({ request }) {
 
     // Handle successful login
     if (response.data.status === "SUCCESS") {
+      window.localStorage.setItem("isLoggedIn", "true");
       return redirect("/dashboard");
     }
 

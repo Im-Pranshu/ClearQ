@@ -20,6 +20,8 @@ import ForgotPassword, {
 import ResetPassword, {
   action as resetPasswordAction,
 } from "./routes/ResetPassword.jsx";
+import ProtectedRoutes from "./components/ProtectedRoutes.jsx";
+import PublicRoutes from "./components/PublicRoutes.jsx";
 
 const router = createBrowserRouter([
   {
@@ -27,49 +29,64 @@ const router = createBrowserRouter([
     element: <Root />,
 
     children: [
+      // Public Routes
       {
-        index: true, // This renders the Index component at the root path
-        element: <Home />,
+        path: "/",
+        element: <PublicRoutes />, // Wrapper for public routes
+        children: [
+          {
+            index: true, // Home page (optional)
+            element: <Home />,
+          },
+          {
+            path: "/contact-us",
+            element: <ContactUs />,
+          },
+          {
+            path: "/about-us",
+            element: <AboutUs />,
+          },
+          {
+            path: "/sign-in",
+            element: <SignIn />,
+            action: signInAction,
+          },
+          {
+            path: "/sign-up",
+            element: <SignUp />,
+            action: signUpAction,
+          },
+          {
+            path: "/verify-email",
+            element: <VerifyEmail />,
+          },
+          {
+            path: "/verified",
+            element: <Verified />,
+          },
+          {
+            path: "/forgot-password",
+            element: <ForgotPassword />,
+            action: forgotPasswordAction,
+          },
+          {
+            path: "/reset-password/user/verify/:userId/:resetString",
+            element: <ResetPassword />,
+            action: resetPasswordAction,
+          },
+        ],
       },
+
+      // Protected Routes Wrapper
       {
-        path: "/sign-in",
-        element: <SignIn />,
-        action: signInAction,
-      },
-      {
-        path: "/sign-up",
-        element: <SignUp />,
-        action: signUpAction,
-      },
-      {
-        path: "/verify-email",
-        element: <VerifyEmail />,
-      },
-      {
-        path: "/verified",
-        element: <Verified />,
-      },
-      {
-        path: "/forgot-password",
-        element: <ForgotPassword />,
-        action: forgotPasswordAction,
-      },
-      {
-        path: "/reset-password/user/verify/:userId/:resetString",
-        element: <ResetPassword />,
-        action: resetPasswordAction,
-      },
-      {
-        path: "/dashboard",
-        element: <Dashboard />,
-      },
-      {
-        path: "/contact-us",
-        element: <ContactUs />,
-      },
-      {
-        path: "/about-us",
-        element: <AboutUs />,
+        path: "/",
+        element: <ProtectedRoutes />, // Only accessible if logged in
+        children: [
+          {
+            path: "/dashboard",
+            element: <Dashboard />,
+          },
+        ],
       },
     ],
   },
@@ -80,3 +97,44 @@ createRoot(document.getElementById("root")).render(
     <RouterProvider router={router} />
   </StrictMode>
 );
+
+// {
+//   index: true, // This renders the Index component at the root path
+//   element: <Home />,
+// },
+// {
+//   path: "/sign-in",
+//   element: <SignIn />,
+//   action: signInAction,
+// },
+// {
+//   path: "/sign-up",
+//   element: <SignUp />,
+//   action: signUpAction,
+// },
+// {
+//   path: "/verify-email",
+//   element: <VerifyEmail />,
+// },
+// {
+//   path: "/verified",
+//   element: <Verified />,
+// },
+// {
+//   path: "/forgot-password",
+//   element: <ForgotPassword />,
+//   action: forgotPasswordAction,
+// },
+// {
+//   path: "/reset-password/user/verify/:userId/:resetString",
+//   element: <ResetPassword />,
+//   action: resetPasswordAction,
+// },
+// {
+//   path: "/contact-us",
+//   element: <ContactUs />,
+// },
+// {
+//   path: "/about-us",
+//   element: <AboutUs />,
+// },
