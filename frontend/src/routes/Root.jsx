@@ -1,12 +1,11 @@
 import React, { useState, useEffect } from "react";
 import "../css/Root.css";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Outlet } from "react-router-dom";
 
 import Navbar from "../components/Navbar";
 
 const Root = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(null); // Initially, it's null because we're loading the login state
-  const navigate = useNavigate();
   // This will run once when the component mounts
   useEffect(() => {
     // Check the login state in localStorage
