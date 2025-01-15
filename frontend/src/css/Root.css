@@ -6,12 +6,20 @@
   width: 100%;
   opacity: 100%;
   color: white;
+  box-sizing: border-box;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .linkBtn {
   color: white;
   text-decoration: none;
+  transition: 0.4s;
+}
+
+.linkBtn:hover {
+  color: #00adb5;
+  transform: scale(1.02);
+  transition: 0.5s;
 }
 
 .allBtn {

@@ -36,6 +36,12 @@ export default function SignIn() {
           // required
         />
 
+        <p className="linkBtn">
+          <Link className="linkBtn" to={"/forgot-password"}>
+            Forgot Password ?
+          </Link>
+        </p>
+
         <Button
           content={"Sign in"}
           clickStatus={isSubmitting}

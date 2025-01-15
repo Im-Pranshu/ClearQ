@@ -66,13 +66,13 @@ export default function SignUp() {
 }
 
 export async function action({ request }) {
-  const formData = await request.formData();
-  const name = formData.get("name");
-  const email = formData.get("email");
-  const password = formData.get("password");
-
   // Send signup request to the backend API
   try {
+    const formData = await request.formData();
+    const name = formData.get("name");
+    const email = formData.get("email");
+    const password = formData.get("password");
+
     const response = await axios.post("http://localhost:5000/user/signup", {
       name,
       email,

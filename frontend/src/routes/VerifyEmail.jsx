@@ -19,7 +19,7 @@ const VerifyEmail = () => {
         (If not found in inbox then check your spam folder.)
       </p>
       <Link
-        className="allBtn linkBtn verify"
+        className="allBtn linkBtn logBtn verify"
         to="https://www.gmail.com"
         target="_blank"
       >

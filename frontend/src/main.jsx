@@ -14,6 +14,12 @@ import SignUp, { action as signUpAction } from "./routes/SignUp.jsx";
 import Dashboard from "./routes/Dashboard.jsx";
 import VerifyEmail from "./routes/VerifyEmail.jsx";
 import Verified from "./routes/Verified.jsx";
+import ForgotPassword, {
+  action as forgotPasswordAction,
+} from "./routes/ForgetPassword.jsx";
+import ResetPassword, {
+  action as resetPasswordAction,
+} from "./routes/ResetPassword.jsx";
 
 const router = createBrowserRouter([
   {
@@ -42,6 +48,16 @@ const router = createBrowserRouter([
       {
         path: "/verified",
         element: <Verified />,
+      },
+      {
+        path: "/forgot-password",
+        element: <ForgotPassword />,
+        action: forgotPasswordAction,
+      },
+      {
+        path: "/reset-password/user/verify/:userId/:resetString",
+        element: <ResetPassword />,
+        action: resetPasswordAction,
       },
       {
         path: "/dashboard",

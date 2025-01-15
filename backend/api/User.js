@@ -223,8 +223,6 @@ const sendVerificationEmail = ({ _id, email }, res) => {
 // handling verification of sent link - Verify Email
 router.get("/verify/:userId/:uniqueString", (req, res) => {
   let { userId, uniqueString } = req.params;
-  // console.log("userId : " + userId);
-  // console.log("uniqueString : " + uniqueString);
 
   UserVerification.find({ userId })
     .then((result) => {
@@ -643,7 +641,7 @@ router.post("/resetPassword", (req, res) => {
                             res.json({
                               status: "SUCCESS",
                               message:
-                                "Your password has been reset successfully.",
+                                "Your password has been reset successfully. You can Login now.",
                             });
                           })
                           .catch((error) => {
