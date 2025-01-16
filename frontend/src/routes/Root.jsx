@@ -23,12 +23,9 @@ const Root = () => {
 
   // If login state is null (still loading), show the loader
   if (isLoggedIn === null) {
-    return (
-      <div className="loader-container">
-        <div className="loader"></div> {/* Add a simple loader here */}
-      </div>
-    );
+    return <div className="loader"></div>;
   }
+
   return (
     <div className="Root">
       <div>
