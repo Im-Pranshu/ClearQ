@@ -9,6 +9,9 @@ import UserVerification from "../models/UserVerification.js";
 // mongoose password reset model
 import PasswordReset from "../models/PasswordReset.js";
 
+// mongoose Todo model
+import Todo from "../models/Todo.js";
+
 // password handler - encrypt and decrypt password
 import bcrypt from "bcrypt";
 
@@ -699,6 +702,105 @@ router.post("/resetPassword", (req, res) => {
         message: "Checking for existing password reset record failed!",
       });
     });
+});
+
+// Create a new todo
+router.post("/create", async (req, res) => {
+  const { userId, title, description } = req.body;
+
+  if (!userId || !title || !description) {
+    return res
+      .status(400)
+      .json({ status: "FAILED", message: "All fields are required." });
+  }
+
+  try {
+    const newTodo = new Todo({
+      userId,
+      title,
+      description,
+    });
+
+    // Handle the completedOn field in the backend
+    const now = new Date();
+    let dd = String(now.getDate()).padStart(2, "0");
+    let mm = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
+    let yyyy = now.getFullYear();
+    let h = String(now.getHours()).padStart(2, "0");
+    let m = String(now.getMinutes()).padStart(2, "0");
+    let s = String(now.getSeconds()).padStart(2, "0");
+
+    // Format the completedOn field as "dd/mm/yyyy at hh:mm:ss"
+    newTodo.completedOn = `${dd}/${mm}/${yyyy} at ${h}:${m}:${s}`;
+
+    const savedTodo = await newTodo.save();
+    res.status(201).json({ status: "SUCCESS", data: savedTodo });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: "FAILED", message: "Error creating todo." });
+  }
+});
+
+// Get all todos for a specific user
+router.get("/:userId", async (req, res) => {
+  const { userId } = req.params;
+
+  try {
+    const todos = await Todo.find({ userId }).sort({ createdAt: -1 });
+    res.status(200).json({ status: "SUCCESS", data: todos });
+  } catch (err) {
+    console.error(err);
+    res
+      .status(500)
+      .json({ status: "FAILED", message: "Error fetching todos." });
+  }
+});
+
+// Update a todo by ID
+router.put("/update/:uniqueId", async (req, res) => {
+  const { uniqueId } = req.params;
+  const { title, description, completedOn } = req.body;
+
+  try {
+    const updatedTodo = await Todo.findByIdAndUpdate(
+      uniqueId,
+      { title, description, completedOn },
+      { new: true }
+    );
+
+    if (!updatedTodo) {
+      return res
+        .status(404)
+        .json({ status: "FAILED", message: "Todo not found." });
+    }
+
+    res.status(200).json({ status: "SUCCESS", data: updatedTodo });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: "FAILED", message: "Error updating todo." });
+  }
+});
+
+// Delete a todo by ID
+router.delete("/delete/:uniqueId", async (req, res) => {
+  const { uniqueId } = req.params;
+
+  try {
+    const deletedTodo = await Todo.findByIdAndDelete(uniqueId);
+
+    if (!deletedTodo) {
+      return res
+        .status(404)
+        .json({ status: "FAILED", message: "Todo not found." });
+    }
+
+    res
+      .status(200)
+      .json({ status: "SUCCESS", message: "Todo deleted successfully." });
+  } catch (err) {
+    console.error(err);
+    res.status(500).json({ status: "FAILED", message: "Error deleting todo." });
+  }
 });
 
 export default router;

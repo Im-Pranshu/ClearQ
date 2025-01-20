@@ -74,10 +74,14 @@ export async function action({ request }) {
       password,
     });
 
+    const userData = response.data.data[0];
+    console.log("userData:", userData);
+
     // Handle successful login
     if (response.data.status === "SUCCESS") {
       window.localStorage.setItem("isLoggedIn", "true");
-      return redirect("/dashboard");
+      window.localStorage.setItem("userId", userData._id);
+      return redirect(`/dashboard/${userData._id}`);
     }
 
     // Handle invalid credentials

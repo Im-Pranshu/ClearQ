@@ -37,7 +37,7 @@ const Navbar = () => {
 
       {isLoggedIn === "true" && (
         <div className="navBtn">
-          <Link onClick={logout} className="linkBtn allBtn" to={"/dashboard"}>
+          <Link onClick={logout} className="linkBtn allBtn" to={"/sign-in"}>
             Logout
           </Link>
         </div>

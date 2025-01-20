@@ -11,7 +11,10 @@ import ContactUs from "./routes/ContactUs.jsx";
 import AboutUs from "./routes/AboutUs.jsx";
 import SignIn, { action as signInAction } from "./routes/SignIn.jsx";
 import SignUp, { action as signUpAction } from "./routes/SignUp.jsx";
-import Dashboard from "./routes/Dashboard.jsx";
+import Dashboard, {
+  loader as dashboardLoader,
+  action as dashboardAction,
+} from "./routes/Dashboard.jsx";
 import VerifyEmail from "./routes/VerifyEmail.jsx";
 import Verified from "./routes/Verified.jsx";
 import ForgotPassword, {
@@ -83,8 +86,10 @@ const router = createBrowserRouter([
         element: <ProtectedRoutes />, // Only accessible if logged in
         children: [
           {
-            path: "/dashboard",
+            path: "/dashboard/:userId",
             element: <Dashboard />,
+            loader: dashboardLoader,
+            action: dashboardAction,
           },
         ],
       },

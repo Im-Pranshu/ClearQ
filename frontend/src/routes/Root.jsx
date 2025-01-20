@@ -15,7 +15,6 @@ const Root = () => {
     // If the user is logged in, we update the state
     if (loginStatus === "true") {
       setIsLoggedIn(true);
-      navigate("/dashboard");
     } else {
       setIsLoggedIn(false);
     }
