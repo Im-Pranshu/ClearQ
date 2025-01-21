@@ -6,7 +6,11 @@ const PublicRoutes = () => {
 
   // Redirect logged-in users to the dashboard or a protected route
   return isLoggedIn === "true" ? (
-    <Navigate to={"/dashboard/" + window.localStorage.getItem("userId")} />
+    <Navigate
+      to={
+        "/dashboard/" + window.localStorage.getItem("userId") + "/pending-tasks"
+      }
+    />
   ) : (
     <Outlet />
   );

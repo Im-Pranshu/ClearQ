@@ -1,18 +1,3 @@
-/* h1 {
-  width: fit-content;
-  margin-left: auto;
-  margin-right: auto;
-  background: #171717;
-  font-family: "Pacifico", sans-serif;
-  font-weight: 400;
-  font-style: normal;
-  padding: 8px;
-  font-size: 32px;
-  text-align: center;
-  border-radius: 5px;
-  box-shadow: 0px 0px 20px 1px #00adb5;
-} */
-
 /* Design for the entire UI of Todo frame */
 .todo-wrapper {
   color: white;
@@ -28,10 +13,9 @@
   /* Adding maximum height to get the scroll */
   height: 75vh;
   width: 80vw;
-  /* when the items will be more then scroll will be added. */
-  overflow: auto;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 1px #00adb5;
+  overflow: hidden;
 }
 
 /* Design for the input part of the task */
@@ -122,11 +106,23 @@
   color: black;
 }
 
+/* .todo-route {
+  display: flex;
+  flex-direction: column;
+} */
+
 /* Styling the todo-list-area */
 .todo-list-area {
   display: flex;
   flex-direction: column;
-  margin-top: 30px;
+  height: 15rem;
+  margin-top: 20px;
+  /* when the items will be more then scroll will be added. */
+  overflow: scroll;
+  scroll-behavior: smooth;
+}
+.todo-list-area::-webkit-scrollbar {
+  display: none;
 }
 
 .btn-area {
@@ -142,8 +138,9 @@
   padding: 25px;
   padding-bottom: 10px;
   padding-top: 10px;
-  margin-bottom: 30px;
-  border-radius: 6px;
+  margin: 15px;
+  margin-bottom: 20px;
+  border-radius: 20px;
   box-shadow: 0px 0px 15px #00adb5;
 }
 
@@ -175,6 +172,7 @@
 .deleteIcon {
   font-size: 35px;
   cursor: pointer;
+  color: white;
 }
 /* Giving hover style to delete icon */
 .deleteIcon:hover {
@@ -185,7 +183,7 @@
   font-size: 35px;
   margin-left: 10px;
   cursor: pointer;
-  color: #00adb5;
+  color: greenyellow;
 }
 .checkIcon:hover {
   color: rgb(2, 169, 91);
@@ -199,6 +197,11 @@
   to {
     transform: rotate(360deg);
   }
+}
+
+.todoBtn {
+  background: none;
+  border: none;
 }
 
 /* Stytlig the input feilds of the edit task */

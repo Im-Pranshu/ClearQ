@@ -1,5 +1,4 @@
 import mongoose from "mongoose";
-import { v4 as uuidv4 } from "uuid"; // Import uuid library
 
 const Schema = mongoose.Schema;
 
@@ -10,9 +9,11 @@ const todoSchema = new Schema(
       ref: "User",
       required: true,
     },
+    uniqueId: { type: String, required: true }, // New field to store unique ID
     title: { type: String, required: true },
     description: { type: String, required: true },
     completedOn: { type: String },
+    isCompleted: { type: Boolean, default: false }, // New field to track completion status
   },
   { timestamps: true }
 );

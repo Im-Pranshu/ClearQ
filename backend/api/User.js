@@ -706,7 +706,9 @@ router.post("/resetPassword", (req, res) => {
 
 // Create a new todo
 router.post("/create", async (req, res) => {
-  const { userId, title, description } = req.body;
+  const { userId, title, description, isCompleted } = req.body;
+
+  console.log("Creating todo with data: " + req.body);
 
   if (!userId || !title || !description) {
     return res
@@ -717,21 +719,13 @@ router.post("/create", async (req, res) => {
   try {
     const newTodo = new Todo({
       userId,
+      uniqueId: uuidv4(),
       title,
       description,
+      isCompleted: isCompleted || false,
     });
 
-    // Handle the completedOn field in the backend
-    const now = new Date();
-    let dd = String(now.getDate()).padStart(2, "0");
-    let mm = String(now.getMonth() + 1).padStart(2, "0"); // Months are 0-based
-    let yyyy = now.getFullYear();
-    let h = String(now.getHours()).padStart(2, "0");
-    let m = String(now.getMinutes()).padStart(2, "0");
-    let s = String(now.getSeconds()).padStart(2, "0");
-
-    // Format the completedOn field as "dd/mm/yyyy at hh:mm:ss"
-    newTodo.completedOn = `${dd}/${mm}/${yyyy} at ${h}:${m}:${s}`;
+    console.log(newTodo);
 
     const savedTodo = await newTodo.save();
     res.status(201).json({ status: "SUCCESS", data: savedTodo });
@@ -759,12 +753,29 @@ router.get("/:userId", async (req, res) => {
 // Update a todo by ID
 router.put("/update/:uniqueId", async (req, res) => {
   const { uniqueId } = req.params;
-  const { title, description, completedOn } = req.body;
+  // console.log("uniqueId received:", uniqueId); // Add this log to check
+
+  const { title, description, isCompleted } = req.body;
 
   try {
-    const updatedTodo = await Todo.findByIdAndUpdate(
-      uniqueId,
-      { title, description, completedOn },
+    // Prepare the update fields
+    const updateFields = { title, description, isCompleted };
+
+    // If isCompleted is true, include completedOn in the update
+    if (isCompleted) {
+      const now = new Date();
+      const formattedDate = now.toLocaleString("en-GB", {
+        dateStyle: "short",
+        timeStyle: "medium",
+      });
+
+      updateFields.completedOn = formattedDate; // Add completedOn to the update
+    }
+
+    // Perform the update
+    const updatedTodo = await Todo.findOneAndUpdate(
+      { uniqueId: uniqueId },
+      updateFields,
       { new: true }
     );
 
@@ -785,8 +796,18 @@ router.put("/update/:uniqueId", async (req, res) => {
 router.delete("/delete/:uniqueId", async (req, res) => {
   const { uniqueId } = req.params;
 
+  // Basic validation for UUID4 format (optional but recommended)
+  const uuidRegex =
+    /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i;
+  if (!uuidRegex.test(uniqueId)) {
+    return res.status(400).json({
+      status: "FAILED",
+      message: "Invalid UUID format.",
+    });
+  }
+
   try {
-    const deletedTodo = await Todo.findByIdAndDelete(uniqueId);
+    const deletedTodo = await Todo.findOneAndDelete({ uniqueId });
 
     if (!deletedTodo) {
       return res
@@ -798,7 +819,7 @@ router.delete("/delete/:uniqueId", async (req, res) => {
       .status(200)
       .json({ status: "SUCCESS", message: "Todo deleted successfully." });
   } catch (err) {
-    console.error(err);
+    console.error("Error occurred while deleting todo:", err.message);
     res.status(500).json({ status: "FAILED", message: "Error deleting todo." });
   }
 });

@@ -5,12 +5,10 @@ import {
   Form,
   useNavigate,
   redirect,
-  useActionData,
+  Outlet,
+  useLocation,
 } from "react-router-dom";
 import axios from "axios";
-import { RiDeleteBin6Line } from "react-icons/ri";
-import { FaRegCheckCircle } from "react-icons/fa";
-import { AiOutlineEdit } from "react-icons/ai";
 import "../css/Dashboard.css";
 
 // Loader function to fetch data
@@ -31,10 +29,14 @@ export const loader = async ({ params }) => {
 const Dashboard = () => {
   const todos = useLoaderData();
   const navigate = useNavigate();
-  const actionData = useActionData();
   const { userId } = useParams();
-  console.log("userId:", userId);
+
   const [editingTodo, setEditingTodo] = useState(null);
+
+  const location = useLocation(); // Get current location
+
+  // Determine the active state based on the URL
+  const isCompleteScreen = location.pathname.includes("completed-tasks");
 
   const handleEdit = (todo) => {
     setEditingTodo(todo);
@@ -66,18 +68,22 @@ const Dashboard = () => {
             />
           </div>
 
+          {/* Hidden inputs */}
           <input type="hidden" name="userId" value={userId} />
-
           <input
             type="hidden"
             name="todoId"
-            value={editingTodo ? editingTodo.uniqueId : ""}
+            value={editingTodo ? editingTodo._id : ""}
           />
-
           <input
             type="hidden"
             name="actionType"
             value={editingTodo ? "update" : "add"}
+          />
+          <input
+            type="hidden"
+            name="isCompleted"
+            value="false" // Set default to false for new todos
           />
 
           <div className="todo-input-item">
@@ -87,59 +93,31 @@ const Dashboard = () => {
           </div>
         </Form>
 
-        <div className="btn-area">
-          <button
-            className="secondaryBtn active"
-            onClick={() => navigate(`/dashboard/${todos[0].userId}`)}
-          >
-            Todo
-          </button>
-          <button
-            className="secondaryBtn"
-            onClick={() => navigate(`/dashboard/${todos[0].userId}`)}
-          >
-            Completed Task
-          </button>
-        </div>
+        <section className="todo-route">
+          <div className="btn-area">
+            <button
+              className={`secondaryBtn ${!isCompleteScreen && "active"}`}
+              onClick={() => {
+                navigate(`/dashboard/${todos[0].userId}/pending-tasks`);
+              }}
+            >
+              Tasks
+            </button>
 
-        <div className="todo-list-area">
-          {Array.isArray(todos) && todos.length > 0 ? (
-            todos.map((item) => (
-              <div className="todo-list-item" key={item._id}>
-                <div>
-                  <h3>{item.title}</h3>
-                  <p>{item.description}</p>
-                  <p>{item.completedOn}</p>
-                </div>
+            <button
+              className={`secondaryBtn ${isCompleteScreen && "active"}`}
+              onClick={() => {
+                navigate(`/dashboard/${todos[0].userId}/completed-tasks`);
+              }}
+            >
+              Completed Tasks
+            </button>
+          </div>
 
-                <div className="icons">
-                  <Form method="post">
-                    <input type="hidden" name="todoId" value={item._id} />
-                    <input type="hidden" name="actionType" value="delete" />
-                    <RiDeleteBin6Line
-                      className="deleteIcon"
-                      title="Delete"
-                      onClick={() => submit()} // Trigger form submission
-                    />
-                  </Form>
-
-                  <FaRegCheckCircle
-                    className="checkIcon"
-                    title="Complete"
-                    onClick={() => console.log("Complete clicked")}
-                  />
-                  <AiOutlineEdit
-                    className="checkIcon"
-                    title="Edit"
-                    onClick={() => handleEdit(item)}
-                  />
-                </div>
-              </div>
-            ))
-          ) : (
-            <p>No tasks available</p> // Fallback message if todos are empty
-          )}
-        </div>
+          <div className="todo-list-area">
+            <Outlet />
+          </div>
+        </section>
       </div>
     </div>
   );
@@ -152,16 +130,16 @@ export const action = async ({ request }) => {
   const userId = formData.get("userId"); // Get the userId from the URL params
 
   console.log("formData:", formData);
-  console.log("userId:", userId);
+  console.log("User ID:", userId);
 
   const title = formData.get("title");
-  console.log("title:", title);
+  // console.log("title:", title);
   const description = formData.get("description");
-  console.log("description:", description);
+  // console.log("description:", description);
   const todoId = formData.get("todoId");
-  console.log("todoId:", todoId);
+  // console.log("todoId:", todoId);
   const actionType = formData.get("actionType"); // Add, Update, Delete
-  console.log("actionType:", actionType);
+  // console.log("actionType:", actionType);
 
   if (actionType === "add") {
     try {
@@ -169,8 +147,9 @@ export const action = async ({ request }) => {
         title,
         description,
         userId,
+        isCompleted: false, // Set default to false for new todos
       });
-      return redirect(`/dashboard/${userId}`); // Redirect to the same page to refresh data
+      return redirect(`/dashboard/${userId}/pending-tasks`); // Redirect to the same page to refresh data
     } catch (error) {
       console.error("Error adding todo:", error);
       return { error: "Failed to add todo." };
@@ -183,7 +162,19 @@ export const action = async ({ request }) => {
         title,
         description,
       });
-      return redirect(`/todos/${userId}`);
+      return redirect(`/dashboard/${userId}/pending-tasks`); // Redirect to the same page to refresh data
+    } catch (error) {
+      console.error("Error updating todo:", error);
+      return { error: "Failed to update todo." };
+    }
+  }
+
+  if (actionType === "completed") {
+    try {
+      await axios.put(`http://localhost:5000/user/update/${todoId}`, {
+        isCompleted: true,
+      });
+      return redirect(`/dashboard/${userId}/completed-tasks`); // Redirect to the same page to refresh data
     } catch (error) {
       console.error("Error updating todo:", error);
       return { error: "Failed to update todo." };
@@ -193,7 +184,22 @@ export const action = async ({ request }) => {
   if (actionType === "delete") {
     try {
       await axios.delete(`http://localhost:5000/user/delete/${todoId}`);
-      return redirect(`/todos/${userId}`);
+
+      console.log("Todo ID:", todoId);
+      console.log("User ID:", userId);
+
+      return redirect(`/dashboard/${userId}/pending-tasks`); // Redirect to the same page to refresh data
+    } catch (error) {
+      console.error("Error deleting todo:", error);
+      return { error: "Failed to delete todo." };
+    }
+  }
+
+  if (actionType === "deleteCompleted") {
+    try {
+      await axios.delete(`http://localhost:5000/user/delete/${todoId}`);
+
+      return redirect(`/dashboard/${userId}/completed-tasks`); // Redirect to the same page to refresh data
     } catch (error) {
       console.error("Error deleting todo:", error);
       return { error: "Failed to delete todo." };
@@ -202,3 +208,168 @@ export const action = async ({ request }) => {
 };
 
 export default Dashboard;
+
+// // Now from here What to be diplayed or Return Code Starts.
+//   return (
+//     // ***********************Main App's View***********************
+//     <div className="App">
+
+//       {/* *********************** Whole task mananging UI *********************** */}
+//       <div className="todo-wrapper">
+//         {/* ***********************Todo List Task Input Section*********************** */}
+//         <div className="todo-input">
+//           {/* Title of the task */}
+//           <div className="todo-input-item">
+//             <label>Title</label>
+//             <input
+//               type="text"
+//               value={newTitle}
+//               onChange={(e) => setNewTitle(e.target.value)}
+//               placeholder="What's the task ?"
+//             />
+//           </div>
+//           {/* Description of the task */}
+//           <div className="todo-input-item">
+//             <label>Description</label>
+//             <input
+//               type="text"
+//               placeholder="What's the description of task ?"
+//               value={newDescription}
+//               onChange={(e) => setNewDescription(e.target.value)}
+//             />
+//           </div>
+//           {/* Add new task button */}
+//           <div className="todo-input-item">
+//             <button
+//               type="button"
+//               onClick={handleAddTodo}
+//               className="primaryBtn"
+//             >
+//               Add
+//             </button>
+//           </div>
+//           {/* ***********************Todo List Task Input Section*********************** */}
+//         </div>
+
+//         {/* ***********************Todo List Buttons*********************** */}
+//         <div className="btn-area">
+//           {/* now making the color switching enable between todo and complete by switching the classes */}
+//           <button
+//             className={`secondaryBtn ${isCompleteScreen === false && "active"}`}
+//             onClick={() => setISCompleteScreen(false)}
+//           >
+//             Todo
+//           </button>
+//           <button
+//             className={`secondaryBtn ${isCompleteScreen === true && "active"}`}
+//             onClick={() => setISCompleteScreen(true)}
+//           >
+//             Completed
+//           </button>
+//           {/* ***********************Todo List Buttons*********************** */}
+//         </div>
+
+//         {/* ***********************Todo Task List items*********************** */}
+//         <div className="todo-list-area">
+//           {/* ******************************All Todo List****************************** */}
+//           {/* here we're checking whether user is in the todo screen or not if yes then this block of code will run. */}
+//           {isCompleteScreen === false &&
+//             allTodos.map((item, index) => {
+//               if (currentEdit === index) {
+//                 return (
+//                   <div className="editWrapper" key={index}>
+//                     <input
+//                       placeholder="Updated Title"
+//                       onChange={(e) => handleUpdateTitle(e.target.value)}
+//                       value={currentEditedItem.title}
+//                     />
+//                     <textarea
+//                       placeholder="Updated Description"
+//                       onChange={(e) => handleUpdateDescription(e.target.value)}
+//                       rows={4}
+//                       value={currentEditedItem.description}
+//                     />
+//                     <button
+//                       type="button"
+//                       onClick={handleUpdateTodoBtn}
+//                       className="primaryBtn"
+//                     >
+//                       {" "}
+//                       Update{" "}
+//                     </button>
+//                   </div>
+//                 );
+//               } else {
+//                 return (
+//                   <div className="todo-list-item" key={index}>
+//                     {/* Description about the task */}
+
+//                     <div>
+//                       {/* accessing the newTodoItem object's title and description */}
+//                       <h3>{item.title}</h3>
+//                       <p>{item.description}</p>
+//                     </div>
+
+//                     {/* Icons Library - https://react-icons.github.io/react-icons/ */}
+//                     <div className="icons">
+//                       <RiDeleteBin6Line
+//                         className="deleteIcon"
+//                         title="Delete"
+//                         onClick={() => handleDeleteTodo(index)}
+//                       />
+//                       <FaRegCheckCircle
+//                         className="checkIcon"
+//                         title="Complete"
+//                         onClick={() => handleComplete(index)}
+//                       />
+//                       <AiOutlineEdit
+//                         className="checkIcon"
+//                         title="Edit?"
+//                         onClick={() => handleEdit(index, item)}
+//                       />
+//                     </div>
+//                   </div>
+//                 );
+//               }
+//             })}
+
+//           {/* ******************************Completed Todo List****************************** */}
+//           {/* here we're checking whether user is in the completed task screen or not if yes then this block of code will run. */}
+//           {/* then we'll map the all completed todos which means display all the completed todos. */}
+//           {isCompleteScreen === true &&
+//             completedTodos.map((item, index) => {
+//               return (
+//                 <div className="todo-list-item" key={index}>
+//                   {/* Description about the task */}
+
+//                   <div>
+//                     {/* accessing the newTodoItem object's title and description */}
+//                     <h3>{item.title}</h3>
+//                     <p>{item.description}</p>
+//                     <p>
+//                       <small>Completed on :{item.completedOn}</small>
+//                     </p>
+//                   </div>
+
+//                   {/* Icons Library - https://react-icons.github.io/react-icons/ */}
+//                   <div>
+//                     <RiDeleteBin6Line
+//                       className="deleteIcon"
+//                       title="Delete"
+//                       onClick={() => handleDeleteCompletedTodo(index)}
+//                     />
+//                     {/* Removed checkbox symbol because the task is already completed so we don't want to display it anymore.*/}
+//                   </div>
+//                 </div>
+//               );
+//             })}
+
+//           {/* ***********************Todo Task List items*********************** */}
+//         </div>
+
+//         {/* *********************** Whole task mananging UI *********************** */}
+//       </div>
+//     </div>
+//     // ***********************Main App's View***********************
+//   );
+// };
