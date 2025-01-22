@@ -18,7 +18,9 @@ export const loader = async ({ params }) => {
     throw new Response("User ID is missing", { status: 400 });
   }
   try {
-    const response = await axios.get(`http://localhost:5000/user/${userId}`);
+    const response = await axios.get(
+      `https://clearq-backend.onrender.com/user/${userId}`
+    );
     return response.data.data; // Returning todos
   } catch (error) {
     throw new Response("Failed to fetch todos", { status: 500 });
@@ -129,7 +131,7 @@ export const action = async ({ request }) => {
   // Handle adding a new todo
   if (actionType === "add") {
     try {
-      await axios.post("http://localhost:5000/user/create", {
+      await axios.post("https://clearq-backend.onrender.com/user/create", {
         title,
         description,
         userId,
@@ -144,10 +146,13 @@ export const action = async ({ request }) => {
   // Handle updating an existing todo
   if (actionType === "update") {
     try {
-      await axios.put(`http://localhost:5000/user/update/${todoId}`, {
-        title,
-        description,
-      });
+      await axios.put(
+        `https://clearq-backend.onrender.com/user/update/${todoId}`,
+        {
+          title,
+          description,
+        }
+      );
       return redirect(`/dashboard/${userId}/pending-tasks`); // Refresh the page
     } catch (error) {
       return { error: "Failed to update todo." };
@@ -157,9 +162,12 @@ export const action = async ({ request }) => {
   // Handle completing a todo
   if (actionType === "completed") {
     try {
-      await axios.put(`http://localhost:5000/user/update/${todoId}`, {
-        isCompleted: true,
-      });
+      await axios.put(
+        `https://clearq-backend.onrender.com/user/update/${todoId}`,
+        {
+          isCompleted: true,
+        }
+      );
       return redirect(`/dashboard/${userId}/completed-tasks`); // Refresh the page
     } catch (error) {
       return { error: "Failed to update todo." };
@@ -169,7 +177,9 @@ export const action = async ({ request }) => {
   // Handle deleting a todo
   if (actionType === "delete") {
     try {
-      await axios.delete(`http://localhost:5000/user/delete/${todoId}`);
+      await axios.delete(
+        `https://clearq-backend.onrender.com/user/delete/${todoId}`
+      );
       return redirect(`/dashboard/${userId}/pending-tasks`); // Refresh the page
     } catch (error) {
       return { error: "Failed to delete todo." };
@@ -179,7 +189,9 @@ export const action = async ({ request }) => {
   // Handle deleting a completed todo
   if (actionType === "deleteCompleted") {
     try {
-      await axios.delete(`http://localhost:5000/user/delete/${todoId}`);
+      await axios.delete(
+        `https://clearq-backend.onrender.com/user/delete/${todoId}`
+      );
       return redirect(`/dashboard/${userId}/completed-tasks`); // Refresh the page
     } catch (error) {
       return { error: "Failed to delete todo." };

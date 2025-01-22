@@ -149,7 +149,7 @@ router.post("/signup", (req, res) => {
 // sending verification link by email
 const sendVerificationEmail = ({ _id, email }, res) => {
   // url to be used in the email
-  const currentUrl = "http://localhost:5000/";
+  const currentUrl = "https://clearq-backend.onrender.com";
 
   // combining user id from db and uid package value to get unique string
   const uniqueString = uuidv4() + _id;
@@ -249,7 +249,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                   let message =
                     "Link has expired. Please request a new verification link.";
                   res.redirect(
-                    `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                    `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                       message
                     )}`
                   );
@@ -259,7 +259,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                   let message =
                     "Clearing user with expired unique string failed!";
                   res.redirect(
-                    `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                    `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                       message
                     )}`
                   );
@@ -269,7 +269,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
               console.log(result);
               let message = "Failed to delete expired verification record!";
               res.redirect(
-                `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                   message
                 )}`
               );
@@ -296,7 +296,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                         const message =
                           "Your account has been successfully created and verified. You can log in now.";
                         res.redirect(
-                          `http://localhost:5173/verified?success=true&message=${encodeURIComponent(
+                          `https://clearq-frontend.onrender.com/verified?success=true&message=${encodeURIComponent(
                             message
                           )}`
                         );
@@ -306,7 +306,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                         let message =
                           "An Error occurred while finalizing successful verification";
                         res.redirect(
-                          `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                          `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                             message
                           )}`
                         );
@@ -317,7 +317,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                     let message =
                       "An Error occurred while updating user record to show verified";
                     res.redirect(
-                      `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                      `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                         message
                       )}`
                     );
@@ -327,7 +327,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
                 let message =
                   "Invalid Verification detials, Please check your inbox";
                 res.redirect(
-                  `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                  `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                     message
                   )}`
                 );
@@ -337,7 +337,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
               console.log(error);
               let message = "An error occurred while comparing unique strings.";
               res.redirect(
-                `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+                `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
                   message
                 )}`
               );
@@ -348,7 +348,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
         let message =
           "Account record doesn't exist or has been already verified. Please signup or login";
         res.redirect(
-          `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+          `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
             message
           )}`
         );
@@ -358,7 +358,7 @@ router.get("/verify/:userId/:uniqueString", (req, res) => {
       console.log(error);
       let message = "An error occurred while fetching user verification data!";
       res.redirect(
-        `http://localhost:5173/verified?error=true&message=${encodeURIComponent(
+        `https://clearq-frontend.onrender.com/verified?error=true&message=${encodeURIComponent(
           message
         )}`
       );

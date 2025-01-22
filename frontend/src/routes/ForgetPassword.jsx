@@ -47,10 +47,10 @@ export async function action({ request }) {
 
     // API call to request password reset
     const response = await axios.post(
-      "http://localhost:5000/user/requestPasswordReset",
+      "https://clearq-backend.onrender.com/user/requestPasswordReset",
       {
         email,
-        redirectUrl: "http://localhost:5173/reset-password/", // Update with your frontend URL
+        redirectUrl: "https://clearq-frontend.onrender.com/reset-password/", // Update with your frontend URL
       }
     );
 

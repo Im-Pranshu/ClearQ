@@ -73,11 +73,14 @@ export async function action({ request }) {
     const email = formData.get("email");
     const password = formData.get("password");
 
-    const response = await axios.post("http://localhost:5000/user/signup", {
-      name,
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://clearq-backend.onrender.com/user/signup",
+      {
+        name,
+        email,
+        password,
+      }
+    );
 
     if (response.data.status === "PENDING") {
       // Save user details to localStorage

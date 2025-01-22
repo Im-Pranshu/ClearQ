@@ -69,10 +69,13 @@ export async function action({ request }) {
     const password = formData.get("password");
 
     // Send login request to backend
-    const response = await axios.post("http://localhost:5000/user/signin", {
-      email,
-      password,
-    });
+    const response = await axios.post(
+      "https://clearq-backend.onrender.com/user/signin",
+      {
+        email,
+        password,
+      }
+    );
 
     const userData = response.data.data[0];
     window.localStorage.setItem("userName", userData.name);

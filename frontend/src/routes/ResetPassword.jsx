@@ -51,7 +51,7 @@ export async function action({ request }) {
 
     // API call to reset password
     const response = await axios.post(
-      "http://localhost:5000/user/resetPassword",
+      "https://clearq-backend.onrender.com/user/resetPassword",
       {
         userId,
         resetString,
