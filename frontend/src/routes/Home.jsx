@@ -1,9 +1,17 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { FaTasks, FaCheckCircle, FaRegListAlt } from "react-icons/fa";
 import "../css/Home.css";
-import logo from "../assets/logo.png";
 
 const Home = () => {
+  // Check if the user is logged in when the component mounts
+  // If not, set the login state to false and reload the page
+  useEffect(() => {
+    if (window.localStorage.getItem("isLoggedIn") === null) {
+      window.localStorage.setItem("isLoggedIn", "false");
+      window.location.reload();
+    }
+  }, []);
+
   return (
     <div className="home-container">
       <FaTasks className="home-icon" />

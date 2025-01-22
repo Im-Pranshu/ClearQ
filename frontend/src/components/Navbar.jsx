@@ -7,6 +7,8 @@ const Navbar = () => {
 
   const logout = () => {
     window.localStorage.setItem("isLoggedIn", "false");
+    window.localStorage.removeItem("userId");
+    window.localStorage.removeItem("userName");
     Navigate("/sign-in");
   };
 
@@ -32,6 +34,14 @@ const Navbar = () => {
           <Link to={"/sign-up"} className="linkBtn allBtn">
             Sign up
           </Link>
+        </div>
+      )}
+
+      {isLoggedIn === "true" && (
+        <div>
+          <p style={{ fontSize: "24px", margin: "0" }}>
+            Welcome ! {window.localStorage.getItem("userName")}
+          </p>
         </div>
       )}
 

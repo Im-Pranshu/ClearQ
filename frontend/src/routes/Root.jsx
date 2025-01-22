@@ -15,6 +15,9 @@ const Root = () => {
     // If the user is logged in, we update the state
     if (loginStatus === "true") {
       setIsLoggedIn(true);
+      navigate(
+        `/dashboard/${window.localStorage.getItem("userId")}/pending-tasks`
+      ); // Redirect to dashboard if logged in
     } else {
       setIsLoggedIn(false);
     }
