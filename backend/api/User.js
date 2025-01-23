@@ -164,7 +164,7 @@ const sendVerificationEmail = ({ _id, email }, res) => {
     <p>Thank you for signing up with ${
       process.env.APP_NAME
     }. To complete the registration process and access your account, please verify your email address by clicking on the link below.</p>
-    <p><b>Verification Link:</b> <a href="${currentUrl}user/verify/${_id}/${uniqueString}">Click here to verify your email address</a></p>
+    <p><b>Verification Link:</b> <a href="${currentUrl}/user/verify/${_id}/${uniqueString}">Click here to verify your email address</a></p>
       <p><b>Important:</b> This verification link will expire in 6 hours. If you have any issues or concerns, please contact our support team at ${
         process.env.SUPPORT_EMAIL
       }</p>
