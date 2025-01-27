@@ -3,6 +3,7 @@ import { useLoaderData } from "react-router-dom";
 import { RiDeleteBin6Line } from "react-icons/ri";
 import { Form } from "react-router-dom";
 
+// Handling all completed tasks.
 const CompletedTasks = () => {
   // Load the todo data
   const todos = useLoaderData();
