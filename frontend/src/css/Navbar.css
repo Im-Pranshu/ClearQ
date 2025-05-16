@@ -4,7 +4,10 @@
   align-items: center;
   background: #2a2a2a;
   padding: 20px;
-  height: 50px;
+  min-height: 50px; /* Allow height to grow */
+  flex-wrap: wrap;
+  width: 100%;
+  box-sizing: border-box;
 }
 
 .appName {
@@ -38,4 +41,72 @@
 .navBtn {
   display: flex;
   gap: 20px;
+}
+
+/* Ensure welcome message doesn’t overflow */
+.navBar > div > p {
+  font-size: 24px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 200px;
+}
+
+/* Tablet (max-width: 768px) */
+@media (max-width: 768px) {
+  .navBar {
+    flex-direction: column;
+    align-items: flex-start;
+    min-height: auto;
+    padding: 15px;
+  }
+
+  .appName {
+    font-size: 24px;
+  }
+
+  .navMenu {
+    flex-direction: column;
+    gap: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+    width: 100%;
+    align-items: flex-start;
+  }
+
+  .navBtn {
+    flex-direction: column;
+    gap: 10px;
+    width: 100%;
+  }
+
+  .navBar > div > p {
+    font-size: 20px;
+    max-width: 100%;
+  }
+}
+
+/* Mobile (max-width: 480px) */
+@media (max-width: 480px) {
+  .appName {
+    font-size: 20px;
+  }
+
+  .navMenu {
+    font-size: 14px;
+    gap: 8px;
+  }
+
+  .navBtn {
+    gap: 8px;
+  }
+
+  .navMenu > * {
+    padding: 3px;
+  }
+
+  .navBar > div > p {
+    font-size: 18px;
+  }
 }

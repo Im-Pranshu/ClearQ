@@ -29,21 +29,21 @@ export default function SignUp() {
           name="name"
           placeholder="Enter Your Name"
           autoComplete="off" // Disable autocomplete for comment input
-          // required
+          required
         />
         <input
           type="email"
           name="email"
           placeholder="Enter Email ID"
           autoComplete="off" // Disable autocomplete for comment input
-          // required
+          required
         />
         <input
           type="password"
           name="password"
           placeholder="Enter Password"
           autoComplete="off" // Disable autocomplete for comment input
-          // required
+          required
         />
 
         <Button

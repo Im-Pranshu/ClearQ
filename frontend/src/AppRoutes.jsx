@@ -38,7 +38,7 @@ const AppRoutes = createBrowserRouter([
         element: <PublicRoutes />, // Wrapper for public routes
         children: [
           {
-            index: true, // Home page (optional)
+            index: true, // Home page
             element: <Home />, // Home route
           },
           {

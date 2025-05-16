@@ -1,13 +1,15 @@
 .Root {
-  height: 100vh;
+  min-height: 100vh;
   background-image: url("../assets/anonymous-bg.jpg");
   background-size: cover;
-  background-position: fixed;
+  background-position: center;
+  background-attachment: fixed;
   width: 100%;
-  opacity: 100%;
   color: white;
   box-sizing: border-box;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  display: flex;
+  flex-direction: column;
 }
 
 .linkBtn {
@@ -55,38 +57,52 @@
 .outlet {
   display: flex;
   justify-content: center;
-  height: 70vh;
+  align-items: flex-start;
+  min-height: calc(100vh - 90px);
+  padding: 20px;
+  box-sizing: border-box;
+  width: 100%;
+}
+
+.root-loader {
+  display: flex;
+  justify-content: center;
   align-items: center;
-  margin-top: 40px;
-}
-
-/* Loader styles */
-.loader {
-  display: flex; /* Use flexbox for centering */
-  justify-content: center; /* Center horizontally */
-  align-items: center; /* Center vertically */
   gap: 15px;
-  /* font-size: 26px; Font size for loading text */
-  color: #d2d2d2; /* Color of the loading text */
+  color: #d2d2d2;
+  height: 100vh;
 }
 
-.loader:before {
-  content: ""; /* Empty content for the loader */
-  display: inline-block; /* Required for animation */
-  width: 20px; /* Width of the spinner */
-  height: 20px; /* Height of the spinner */
-  border: 5px solid #ccc; /* Light gray border */
-  border-top-color: #242424; /* Color for the spinner's top */
-  border-radius: 50%; /* Make it circular */
-  animation: spin 1s linear infinite; /* Spin animation */
+.root-loader:before {
+  content: "";
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  border: 5px solid #ccc;
+  border-top-color: #242424;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
 }
 
-/* Spin animation */
 @keyframes spin {
   0% {
-    transform: rotate(0deg); /* Start position */
+    transform: rotate(0deg);
   }
   100% {
-    transform: rotate(360deg); /* End position */
+    transform: rotate(360deg);
+  }
+}
+
+@media (max-width: 768px) {
+  .outlet {
+    padding: 15px;
+    min-height: calc(100vh - 120px);
+  }
+}
+
+@media (max-width: 480px) {
+  .outlet {
+    padding: 10px;
+    min-height: calc(100vh - 150px);
   }
 }

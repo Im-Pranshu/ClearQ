@@ -1,195 +1,209 @@
-/* Design for the entire UI of Todo frame */
 .todo-wrapper {
   color: white;
   padding: 20px;
-  /* width will setted to the size of the content. */
-  width: 90%;
-  backdrop-filter: blur(2px);
-  font-family: "Pacifico", sans-serif;
-  /* This margin makes the item to align at center. */
-  margin-left: auto;
-  margin-right: auto;
-  /* margin-top: 50px; */
-  /* Adding maximum height to get the scroll */
-  height: 75vh;
   width: 80vw;
+  max-width: 1000px;
+  background: #000000ea; /* Matches SignPage.css */
+  backdrop-filter: blur(2px);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  margin: 20px auto;
+  height: 75vh;
   border-radius: 10px;
   box-shadow: 0px 0px 10px 1px #00adb5;
   overflow: hidden;
+  box-sizing: border-box;
 }
 
-/* Design for the input part of the task */
 .todo-input {
   display: flex;
   justify-content: center;
   border-bottom: 1px solid gray;
-  padding-bottom: 25px;
-  margin-bottom: 25px;
-  margin-right: 0px;
+  padding-bottom: 20px;
+  margin-bottom: 20px;
 }
 
-/* Styling the inputs item */
 .todo-input-item {
   display: flex;
   flex-direction: column;
   align-items: flex-start;
-  margin-right: 25px;
+  margin-right: 20px;
 }
 
-/* Styling the labels of the input */
 .todo-input-item label {
-  font-weight: bold;
-  font-family: "Pacifico", sans-serif;
+  font-family: "Pacifico", cursive;
   font-weight: 400;
   font-style: normal;
   border-radius: 5px;
-  margin-bottom: 20px;
+  margin-bottom: 15px;
   padding: 3px;
-  box-shadow: 0px 0px 12px 1px #00adb5;
+  box-shadow: 0px 0px 8px 1px #00adb5;
 }
 
-/* Styling the input part of the input part*/
 .todo-input-item input {
   padding: 8px;
   border: none;
   width: 250px;
   border-radius: 6px;
-  box-shadow: 0px 0px 10px #00adb5;
+  background: #1f1f1f;
+  color: white;
+  box-shadow: 0px 0px 8px #00adb5;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
-/* Styling the input when it's clicked or focused */
 .todo-input-item input:focus {
   outline: none;
   border: 2px solid #00adb5;
 }
 
-/* Styling add task button */
 .primaryBtn {
   background-color: #00adb5;
   color: white;
-  font-family: cursive;
-  font-weight: 300;
-  font-style: normal;
-  margin-left: auto;
-  margin-right: auto;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
   border: none;
   border-radius: 6px;
-  margin-top: 48px;
+  margin-top: 40px;
   padding: 8px;
-  width: 50px;
+  width: 60px;
   cursor: pointer;
-  box-shadow: 0px 0px 12px 2px #00adb5;
+  box-shadow: 0px 0px 8px 1px #00adb5;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 36px; /* Fixed height to prevent size jump */
 }
 
-/* Adding hover effect on Add task button */
+.primaryBtn img,
+.primaryBtn .loader {
+  width: 16px;
+  height: 16px;
+  vertical-align: middle;
+  margin-left: 5px;
+}
+
+.primaryBtn .loader {
+  display: inline-block;
+  border: 2px solid #fff;
+  border-top-color: #1f1f1f;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
 .primaryBtn:hover {
   background-color: #007177;
   color: white;
+  transform: scale(1.05);
+  transition: 0.3s;
 }
 
-/* Styling todo/completed button to switch between the screens */
 .secondaryBtn {
   background-color: #303030;
   border-radius: 5px;
   color: white;
   border: none;
-  margin-top: 10px;
-  padding: 12px;
-  width: fit-content;
+  padding: 10px 15px;
   cursor: pointer;
-  box-shadow: 0px 0px 15px 1px #00adb5;
+  box-shadow: 0px 0px 8px 1px #00adb5;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+  transition: 0.3s;
 }
 
-/* switch to this color on active tab b/w todo and completed */
-.active {
+.secondaryBtn.active {
   background-color: #00adb5;
   color: black;
 }
 
-/* .todo-route {
-  display: flex;
-  flex-direction: column;
-} */
-
-/* Styling the todo-list-area */
-.todo-list-area {
-  display: flex;
-  flex-direction: column;
-  height: 15rem;
-  margin-top: 20px;
-  /* when the items will be more then scroll will be added. */
-  overflow: scroll;
-  scroll-behavior: smooth;
-}
-.todo-list-area::-webkit-scrollbar {
-  display: none;
+.secondaryBtn:hover {
+  transform: scale(1.05);
+  transition: 0.3s;
 }
 
 .btn-area {
+  display: flex;
+  gap: 10px;
   margin-bottom: 15px;
 }
 
-/* Styling the list item or added tasks visual */
-.todo-list-item {
-  background-color: rgb(40, 40, 40);
+.todo-list-area {
   display: flex;
-  justify-content: space-between; /*This gives equal space between the contents here contents are in columns style*/
+  flex-direction: column;
+  height: 40vh; /* Adjusted for better scrolling */
+  margin-top: 15px;
+  overflow-y: auto;
+  scroll-behavior: smooth;
+}
+
+.todo-list-area::-webkit-scrollbar {
+  width: 10px;
+}
+
+.todo-list-area::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 8px #00adb5;
+  border-radius: 5px;
+}
+
+.todo-list-area::-webkit-scrollbar-thumb {
+  background: #00adb5;
+  border-radius: 5px;
+}
+
+.todo-list-area::-webkit-scrollbar-thumb:hover {
+  background: #007177;
+}
+
+.todo-list-item {
+  background-color: #1f1f1f;
+  display: flex;
+  justify-content: space-between;
   align-items: center;
-  padding: 25px;
-  padding-bottom: 10px;
-  padding-top: 10px;
-  margin: 15px;
-  margin-bottom: 20px;
-  border-radius: 20px;
-  box-shadow: 0px 0px 15px #00adb5;
+  padding: 15px;
+  margin: 10px;
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px #00adb5;
 }
 
-/* Styling the Name/Title of the task */
 .todo-list-item h3 {
-  font-size: 25px;
+  font-size: 22px;
   color: #00adb5;
-  font-weight: bold;
-  margin: 0px;
+  font-family: "Pacifico", cursive;
+  margin: 0;
 }
 
-/* Styling the description of the paragraph */
 .todo-list-item p {
   font-size: 14px;
-  color: rgb(187, 183, 183);
-  margin-top: 8px;
+  color: #d2d2d2;
+  margin-top: 5px;
   margin-right: 8px;
-  width: fit-content;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .icons {
   display: flex;
   align-items: center;
-  /* margin-left: auto;
-  margin-right: auto; */
+  gap: 10px;
 }
 
-/* Styling the icons */
 .deleteIcon {
-  font-size: 35px;
+  font-size: 30px;
   cursor: pointer;
   color: white;
 }
-/* Giving hover style to delete icon */
+
 .deleteIcon:hover {
-  color: red;
-  animation: logo-spin infinite 20s linear;
+  color: #ff4d4d;
+  animation: logo-spin 20s linear infinite;
 }
+
 .checkIcon {
-  font-size: 35px;
-  margin-left: 10px;
+  font-size: 30px;
   cursor: pointer;
   color: greenyellow;
 }
+
 .checkIcon:hover {
-  color: rgb(2, 169, 91);
-  animation: logo-spin infinite 20s linear;
+  color: #02a95b;
+  animation: logo-spin 20s linear infinite;
 }
-/* Rotation animation style */
+
 @keyframes logo-spin {
   from {
     transform: rotate(0deg);
@@ -204,86 +218,182 @@
   border: none;
 }
 
-/* Stytlig the input feilds of the edit task */
 .editWrapper {
-  background-color: rgb(48, 48, 48);
+  background-color: #2a2a2a;
   padding: 10px;
   display: flex;
-  margin-bottom: 25px;
   flex-direction: column;
+  margin: 10px;
   border-radius: 7px;
-  box-shadow: 0px 0px 15px #00adb5;
+  box-shadow: 0px 0px 8px #00adb5;
 }
 
 .editWrapper input,
 .editWrapper textarea {
-  border: 1px solid lightgray;
-  padding: 10px;
+  border: 1px solid #ccc;
+  padding: 8px;
   margin: 5px;
   border-radius: 4px;
+  background: #1f1f1f;
+  color: white;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .editWrapper .primaryBtn {
-  margin-left: auto;
-  margin-right: auto;
-  padding: 12px;
-  font-size: 16px;
-  width: fit-content;
+  margin: 10px auto;
+  padding: 10px;
+  width: 80px;
 }
 
-/* Adjusting view for small screen */
-@media (max-width: 720px) {
-  h1 {
-    font-size: 1.8em;
+@media (max-width: 768px) {
+  .todo-wrapper {
+    width: 90vw;
+    height: auto;
+    min-height: 60vh;
+    padding: 15px;
+    margin: 15px auto;
   }
 
-  /* Design for the input part of the task */
   .todo-input {
-    font-size: 0.8rem;
-    display: flex;
     flex-direction: column;
-    margin-bottom: 10px;
-  }
-
-  /* Align all the input items in row manner. */
-  .todo-input-item {
-    flex-direction: row;
-  }
-
-  /* Adjusting the labels of the inputs. */
-  .todo-input label {
-    width: 80px;
-    margin-left: auto;
-    margin-right: auto;
+    align-items: center;
+    padding-bottom: 15px;
     margin-bottom: 15px;
   }
 
-  /* Adjusting the add button. */
+  .todo-input-item {
+    margin: 10px 0;
+    width: 100%;
+  }
+
+  .todo-input-item input {
+    width: 100%;
+    padding: 6px;
+  }
+
+  .todo-input-item label {
+    margin-bottom: 10px;
+  }
+
   .primaryBtn {
+    margin-top: 20px;
+    width: 50px;
+    height: 32px;
+  }
+
+  .primaryBtn img,
+  .primaryBtn .loader {
+    width: 14px;
+    height: 14px;
+    border-width: 1.5px;
+  }
+
+  .secondaryBtn {
+    padding: 8px 12px;
+    font-size: 14px;
+  }
+
+  .todo-list-item {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: 10px;
+    margin: 8px;
+  }
+
+  .todo-list-item h3 {
+    font-size: 18px;
+  }
+
+  .todo-list-item p {
+    font-size: 12px;
+  }
+
+  .icons {
     margin-top: 10px;
-    padding: 5px;
+  }
+
+  .deleteIcon,
+  .checkIcon {
+    font-size: 24px;
+  }
+
+  .todo-list-area {
+    height: 35vh;
   }
 }
 
-/* Edit Scroll Bar */
-/* width */
-::-webkit-scrollbar {
-  width: 12px;
-}
+@media (max-width: 480px) {
+  .todo-wrapper {
+    width: 95vw;
+    padding: 10px;
+    margin: 10px auto;
+  }
 
-/* Track */
-::-webkit-scrollbar-track {
-  box-shadow: inset 0 0 10px 2px #00adb5;
-  border-radius: 10px;
-}
+  .todo-input {
+    padding-bottom: 10px;
+    margin-bottom: 10px;
+  }
 
-/* Handle */
-::-webkit-scrollbar-thumb {
-  background: #00adb5;
-  border-radius: 10px;
-}
+  .todo-input-item input {
+    padding: 5px;
+    font-size: 14px;
+  }
 
-/* Handle on hover */
-::-webkit-scrollbar-thumb:hover {
-  background: #aa4a00;
+  .todo-input-item label {
+    font-size: 14px;
+    margin-bottom: 8px;
+  }
+
+  .primaryBtn {
+    margin-top: 15px;
+    width: 40px;
+    height: 28px;
+    font-size: 14px;
+  }
+
+  .primaryBtn img,
+  .primaryBtn .loader {
+    width: 12px;
+    height: 12px;
+    border-width: 1.5px;
+  }
+
+  .secondaryBtn {
+    padding: 6px 10px;
+    font-size: 12px;
+  }
+
+  .todo-list-item {
+    padding: 8px;
+    margin: 5px;
+  }
+
+  .todo-list-item h3 {
+    font-size: 16px;
+  }
+
+  .todo-list-item p {
+    font-size: 11px;
+  }
+
+  .deleteIcon,
+  .checkIcon {
+    font-size: 20px;
+  }
+
+  .todo-list-area {
+    height: 30vh;
+  }
+
+  .editWrapper input,
+  .editWrapper textarea {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .editWrapper .primaryBtn {
+    padding: 8px;
+    width: 60px;
+    font-size: 14px;
+  }
 }
