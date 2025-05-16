@@ -3,31 +3,44 @@
   flex-direction: column;
   align-items: center;
   gap: 20px;
-  max-width: 800px;
+  max-width: 900px;
+  width: 90%;
+  margin: 20px auto;
+  padding: 20px;
+  background: #000000ea; /* Matches SignPage.css, Dashboard.css */
+  border-radius: 10px;
+  box-shadow: 0px 0px 8px 1px #00adb5;
   box-sizing: border-box;
   font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
 }
 
 .about-icon {
-  font-size: 120px;
+  font-size: 100px;
   color: #00adb5;
-  margin-top: 20px;
+  margin-top: 15px;
 }
 
 .about-title {
-  font-size: 3rem;
+  font-size: 2.5rem;
+  font-family: "Pacifico", cursive; /* Matches Dashboard.css headers */
+  color: #00adb5;
+  margin: 0;
 }
 
 .about-description {
-  max-width: 400px;
-  line-height: 1.2;
+  max-width: 500px;
+  line-height: 1.4;
   text-align: center;
+  font-size: 16px;
+  color: #eaeaea;
 }
 
 .about-values {
   display: flex;
   justify-content: space-around;
-  margin-top: 30px;
+  margin-top: 20px;
+  gap: 20px;
+  width: 100%;
 }
 
 .value {
@@ -37,28 +50,116 @@
   background: #1f1f1f;
   padding: 15px;
   border-radius: 10px;
-  filter: drop-shadow(0px 0px 2px #00adb5);
-  transition: 0.5s;
+  box-shadow: 0px 0px 5px #00adb5;
+  transition: 0.3s;
 }
 
 .value:hover {
-  transition: 0.6s;
-  transform: scale(1.1);
-  box-shadow: 0px 0px 5px #00adb5;
-  filter: drop-shadow(0px 0px 8px #00adb5);
+  transform: scale(1.05);
+  box-shadow: 0px 0px 8px #00adb5;
+  transition: 0.3s;
 }
 
 .value-icon {
-  font-size: 40px;
+  font-size: 36px;
   color: #00adb5;
   margin-bottom: 10px;
 }
 
 .value h3 {
-  font-size: 22px;
+  font-size: 20px;
   margin-bottom: 5px;
+  font-family: "Pacifico", cursive;
 }
 
 .value p {
-  font-size: 16px;
+  font-size: 15px;
+}
+
+@media (max-width: 768px) {
+  .about-container {
+    width: 95%;
+    padding: 15px;
+    margin: 15px auto;
+  }
+
+  .about-icon {
+    font-size: 80px;
+    margin-top: 10px;
+  }
+
+  .about-title {
+    font-size: 2rem;
+  }
+
+  .about-description {
+    font-size: 14px;
+    max-width: 80%;
+  }
+
+  .about-values {
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+  }
+
+  .value {
+    width: 80%;
+    padding: 12px;
+  }
+
+  .value-icon {
+    font-size: 32px;
+  }
+
+  .value h3 {
+    font-size: 18px;
+  }
+
+  .value p {
+    font-size: 14px;
+  }
+}
+
+@media (max-width: 480px) {
+  .about-container {
+    width: 100%;
+    padding: 10px;
+    margin: 10px auto;
+  }
+
+  .about-icon {
+    font-size: 60px;
+    margin-top: 8px;
+  }
+
+  .about-title {
+    font-size: 1.8rem;
+  }
+
+  .about-description {
+    font-size: 12px;
+    max-width: 90%;
+  }
+
+  .about-values {
+    gap: 10px;
+  }
+
+  .value {
+    width: 90%;
+    padding: 10px;
+  }
+
+  .value-icon {
+    font-size: 28px;
+  }
+
+  .value h3 {
+    font-size: 16px;
+  }
+
+  .value p {
+    font-size: 12px;
+  }
 }
